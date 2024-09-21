@@ -1,2 +1,4 @@
 rootProject.name = 'petlendar'
 include 'user'
+include 'global'
+
