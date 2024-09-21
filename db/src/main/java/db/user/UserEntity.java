@@ -1,6 +1,7 @@
 package db.user;
 
 import db.common.BaseEntity;
+import db.user.enums.UserRole;
 import db.user.enums.UserStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -33,7 +34,7 @@ public class UserEntity extends BaseEntity {
 
     private String phone;
 
-    private String role;
+    private UserRole role;
 
     private UserStatus status;
 
