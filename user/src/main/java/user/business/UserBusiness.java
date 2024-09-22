@@ -8,6 +8,7 @@ import user.common.response.MessageResponse;
 import user.controller.model.duplication.DuplicationEmailRequest;
 import user.controller.model.duplication.DuplicationNameRequest;
 import user.controller.model.login.UserLoginRequest;
+import user.controller.model.login.UserResponse;
 import user.controller.model.register.UserRegisterRequest;
 import user.converter.UserConverter;
 import user.security.jwt.business.TokenBusiness;
@@ -51,4 +52,8 @@ public class UserBusiness {
         return tokenBusiness.issueToken(userEntity);
     }
 
+    public UserResponse getUserInformation(String email) {
+        UserEntity userEntity = userService.getUserWithThrow(email);
+        return userConverter. toResponse(userEntity);
+    }
 }

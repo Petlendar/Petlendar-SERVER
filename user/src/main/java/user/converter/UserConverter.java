@@ -5,6 +5,7 @@ import db.user.enums.UserRole;
 import global.annotation.Converter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import user.controller.model.login.UserResponse;
 import user.controller.model.register.UserRegisterRequest;
 
 @Converter
@@ -22,6 +23,18 @@ public class UserConverter {
             .address(userRegisterRequest.getAddress())
             .phone(userRegisterRequest.getPhone())
             .role(UserRole.BASIC)
+            .build();
+    }
+
+    public UserResponse toResponse(UserEntity userEntity) {
+        return UserResponse.builder()
+            .id(userEntity.getId())
+            .email(userEntity.getEmail())
+            .name(userEntity.getName())
+            .birth(userEntity.getBirth())
+            .address(userEntity.getAddress())
+            .phone(userEntity.getPhone())
+            .role(userEntity.getRole())
             .build();
     }
 

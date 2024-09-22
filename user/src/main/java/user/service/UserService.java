@@ -55,4 +55,9 @@ public class UserService {
 
         throw new LoginFailException(UserErrorCode.LOGIN_FAIL);
     }
+
+    public UserEntity getUserWithThrow(String email) {
+        return userRepository.findFirstByEmailAndStatusOrderByIdDesc(email, UserStatus.REGISTERED)
+            .orElseThrow(() -> new UserNotFoundException(UserErrorCode.USER_NOT_FOUND));
+    }
 }
