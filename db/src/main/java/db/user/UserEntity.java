@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity extends BaseEntity {
 
     private String email;
