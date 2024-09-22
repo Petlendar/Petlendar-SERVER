@@ -29,4 +29,25 @@ public class UserOpenApiController {
         return Api.OK(response);
     }
 
+    @PostMapping("/duplication/email")
+    @Operation(summary = "[email 중복 확인]")
+    public Api<MessageResponse> duplicationEmailCheck(
+        @RequestBody Api<DuplicationEmailRequest> duplicationEmailRequest
+    ) {
+        MessageResponse response = userBusiness.duplicationEmailCheck(
+            duplicationEmailRequest.getBody());
+        return Api.OK(response);
+    }
+
+    @PostMapping("/duplication/name")
+    @Operation(summary = "[name 중복 확인]")
+    public Api<MessageResponse> duplicationNameCheck(
+        @RequestBody Api<DuplicationNameRequest> duplicationNameRequest
+    ) {
+        MessageResponse response = userBusiness.duplicationNameCheck(
+            duplicationNameRequest.getBody());
+        return Api.OK(response);
+    }
+
+
 }
