@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import user.business.UserBusiness;
+import user.common.response.MessageResponse;
 import user.controller.model.login.UserResponse;
 
 @RestController
@@ -26,5 +28,14 @@ public class UserApiController {
         UserResponse response = userBusiness.getUserInformation(user.getUsername());
         return Api.OK(response);
     }
+
+    @PostMapping("/unregister")
+    @Operation(summary = "[회원 탈퇴]")
+    public Api<MessageResponse> unregister(
+        @Parameter(hidden = true) @AuthenticationPrincipal User user) {
+        MessageResponse response = userBusiness.unregister(user.getUsername());
+        return Api.OK(response);
+    }
+
 
 }

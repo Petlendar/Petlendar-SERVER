@@ -56,4 +56,10 @@ public class UserBusiness {
         UserEntity userEntity = userService.getUserWithThrow(email);
         return userConverter. toResponse(userEntity);
     }
+
+    public MessageResponse unregister(String email) {
+        userService.unregister(email);
+        return messageConverter.toResponse("회원탈퇴가 완료되었습니다.");
+    }
+
 }
