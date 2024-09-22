@@ -57,11 +57,11 @@ public class JwtTokenHelper implements TokenHelperIfs {
             return new HashMap<>(result.getBody());
         } catch (Exception e) {
             if (e instanceof SignatureException) { // 토큰이 유효하지 않을 때
-                throw new TokenSignatureException(TokenErrorCode.INVALID_TOKEN, e);
+                throw new TokenSignatureException(TokenErrorCode.INVALID_TOKEN);
             } else if (e instanceof ExpiredJwtException) { // 토큰 만료
-                throw new TokenExpiredException(TokenErrorCode.EXPIRED_TOKEN, e);
+                throw new TokenExpiredException(TokenErrorCode.EXPIRED_TOKEN);
             } else { // 그 외
-                throw new TokenException(TokenErrorCode.TOKEN_EXCEPTION, e);
+                throw new TokenException(TokenErrorCode.TOKEN_EXCEPTION);
             }
         }
     }
