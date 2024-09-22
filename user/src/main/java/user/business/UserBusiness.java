@@ -7,8 +7,11 @@ import user.common.response.MessageConverter;
 import user.common.response.MessageResponse;
 import user.controller.model.duplication.DuplicationEmailRequest;
 import user.controller.model.duplication.DuplicationNameRequest;
+import user.controller.model.login.UserLoginRequest;
 import user.controller.model.register.UserRegisterRequest;
 import user.converter.UserConverter;
+import user.security.jwt.business.TokenBusiness;
+import user.security.jwt.model.TokenResponse;
 import user.service.UserService;
 
 @Business
@@ -18,6 +21,7 @@ public class UserBusiness {
     private final UserService userService;
     private final UserConverter userConverter;
     private final MessageConverter messageConverter;
+    private final TokenBusiness tokenBusiness;
 
     public MessageResponse register(UserRegisterRequest userRegisterRequest) {
 
@@ -41,5 +45,10 @@ public class UserBusiness {
         return messageConverter.toResponse("사용 가능한 이름입니다.");
     }
 
+
+    public TokenResponse login(UserLoginRequest userLoginRequest) {
+        UserEntity userEntity = userService.login(userLoginRequest);
+        return tokenBusiness.issueToken(userEntity);
+    }
 
 }

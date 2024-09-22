@@ -5,7 +5,11 @@ import db.user.UserRepository;
 import db.user.enums.UserStatus;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import user.common.error.UserErrorCode;
+import user.common.exception.user.UserNotFoundException;
+import user.controller.model.login.UserLoginRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -33,4 +37,20 @@ public class UserService {
         }
     }
 
+    public UserEntity login(UserLoginRequest userLoginRequest) {
+
+        // UNREGISTERED 가 아닌 UserEntity 반환
+        UserEntity userEntity = userRepository.findFirstByEmailAndStatusNotOrderByEmailDesc(
+                userLoginRequest.getEmail(), UserStatus.UNREGISTERED)
+            .orElseThrow(() -> new UserNotFoundException(UserErrorCode.USER_NOT_FOUND));
+
+        if (BCrypt.checkpw(userLoginRequest.getPassword(), userEntity.getPassword())) {
+            userEntity.setLastLoginAt(LocalDateTime.now());
+            userRepository.save(userEntity);
+            return userEntity;
+        }
+
+        throw new RuntimeException("로그인 정보가 일치하지 않습니다.");
+
+    }
 }
