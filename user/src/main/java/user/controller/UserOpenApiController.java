@@ -11,7 +11,9 @@ import user.business.UserBusiness;
 import user.common.response.MessageResponse;
 import user.controller.model.duplication.DuplicationEmailRequest;
 import user.controller.model.duplication.DuplicationNameRequest;
+import user.controller.model.login.UserLoginRequest;
 import user.controller.model.register.UserRegisterRequest;
+import user.security.jwt.model.TokenResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,5 +51,11 @@ public class UserOpenApiController {
         return Api.OK(response);
     }
 
+    @PostMapping("/login")
+    @Operation(summary = "[로그인]")
+    public Api<TokenResponse> login(@RequestBody Api<UserLoginRequest> userLoginRequest) {
+        TokenResponse response = userBusiness.login(userLoginRequest.getBody());
+        return Api.OK(response);
+    }
 
 }
