@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import user.common.error.UserErrorCode;
+import user.common.exception.user.ExistUserEmailException;
+import user.common.exception.user.ExistUserNameException;
+import user.common.exception.user.LoginFailException;
 import user.common.exception.user.UserNotFoundException;
 import user.controller.model.login.UserLoginRequest;
 
@@ -26,14 +29,14 @@ public class UserService {
     public void existsByNameWithThrow(String name) {
         boolean existsByName = userRepository.existsByName(name);
         if (existsByName) {
-            throw new RuntimeException("이미 존재하는 닉네임입니다.");
+            throw new ExistUserNameException(UserErrorCode.EXISTS_USER_NAME);
         }
     }
 
     public void existsByEmailWithThrow(String email) {
         boolean existsByEmail = userRepository.existsByEmail(email);
         if (existsByEmail) {
-            throw new RuntimeException("이미 존재하는 아이디입니다.");
+            throw new ExistUserEmailException(UserErrorCode.EXISTS_USER_EMAIL);
         }
     }
 
@@ -50,7 +53,6 @@ public class UserService {
             return userEntity;
         }
 
-        throw new RuntimeException("로그인 정보가 일치하지 않습니다.");
-
+        throw new LoginFailException(UserErrorCode.LOGIN_FAIL);
     }
 }

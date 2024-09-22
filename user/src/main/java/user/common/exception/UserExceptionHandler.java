@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import user.common.error.UserErrorCode;
+import user.common.exception.user.ExistUserEmailException;
+import user.common.exception.user.ExistUserNameException;
+import user.common.exception.user.LoginFailException;
 import user.common.exception.user.UserNotFoundException;
 
 @RestControllerAdvice
@@ -18,6 +21,27 @@ public class UserExceptionHandler {
         log.info("", e);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(Api.ERROR(UserErrorCode.USER_NOT_FOUND));
+    }
+
+    @ExceptionHandler(value = ExistUserNameException.class)
+    public ResponseEntity<Api<Object>> existUserNameException(ExistUserNameException e) {
+        log.info("", e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body(Api.ERROR(UserErrorCode.EXISTS_USER_NAME));
+    }
+
+    @ExceptionHandler(value = ExistUserEmailException.class)
+    public ResponseEntity<Api<Object>> existUserEmailException(ExistUserEmailException e) {
+        log.info("", e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body(Api.ERROR(UserErrorCode.EXISTS_USER_EMAIL));
+    }
+
+    @ExceptionHandler(value = LoginFailException.class)
+    public ResponseEntity<Api<Object>> loginFailException(LoginFailException e) {
+        log.info("", e);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(Api.ERROR(UserErrorCode.LOGIN_FAIL));
     }
 
 }
