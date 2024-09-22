@@ -4,6 +4,8 @@ import db.common.BaseEntity;
 import db.user.enums.UserRole;
 import db.user.enums.UserStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,8 +36,10 @@ public class UserEntity extends BaseEntity {
 
     private String phone;
 
+    @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
+    @Enumerated(value = EnumType.STRING)
     private UserStatus status;
 
     private LocalDateTime registeredAt;
