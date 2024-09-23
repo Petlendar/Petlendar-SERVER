@@ -12,6 +12,8 @@ import user.common.exception.jwt.TokenSignatureException;
 import user.security.jwt.converter.TokenConverter;
 import user.security.jwt.model.TokenDto;
 import user.security.jwt.model.TokenResponse;
+import user.security.jwt.model.TokenValidationRequest;
+import user.security.jwt.model.TokenValidationResponse;
 import user.security.jwt.service.TokenService;
 
 @Business
@@ -52,4 +54,9 @@ public class TokenBusiness {
         throw new TokenSignatureException(TokenErrorCode.INVALID_TOKEN);
     }
 
+    public TokenValidationResponse tokenValidation(TokenValidationRequest token) {
+        Long userId = tokenService.validationToken(token.getTokenDto().getToken().substring(7));
+        System.out.println(userId);
+        return TokenValidationResponse.builder().userId(userId).build();
+    }
 }
