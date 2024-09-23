@@ -3,4 +3,5 @@ include 'global'
 include 'db'
 include 'user'
 include 'image'
+include 'gateway'
 

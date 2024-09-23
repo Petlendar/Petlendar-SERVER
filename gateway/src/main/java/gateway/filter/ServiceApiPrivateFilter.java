@@ -1,0 +1,106 @@
+package gateway.filter;
+
+import gateway.user.model.TokenDto;
+import gateway.user.model.TokenValidationRequest;
+import gateway.user.model.TokenValidationResponse;
+import global.errorcode.TokenErrorCode;
+import global.exception.ApiException;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
+
+@Component
+@Slf4j
+public class ServiceApiPrivateFilter extends
+    AbstractGatewayFilterFactory<ServiceApiPrivateFilter.Config> {
+
+    public ServiceApiPrivateFilter() {
+        super(Config.class);
+    }
+
+    @Override
+    public GatewayFilter apply(Config config) {
+        return (exchange, chain) -> {
+            // 요청 처리 전
+            log.info("ServiceApiPrivateFilter Route Uri : {}", exchange.getRequest().getURI());
+
+            // user server 를 통한 인증 실행
+            // 1. 토큰의 유무
+            List<String> headers = exchange.getRequest().getHeaders().get("Authorization");
+
+            if (headers == null || headers.isEmpty()) {
+                throw new ApiException(TokenErrorCode.NON_TOKEN_HEADER);
+            }
+
+            String token = headers.get(0);
+            log.info("Authorization : {}", token);
+
+            // 2. 토큰 유효성
+            String userApiUri = UriComponentsBuilder
+                .fromUriString("http://localhost") // URL 수정
+                .port(8081)
+                .path("/open-api/token") // 경로 추가
+                .build()
+                .encode()
+                .toUriString();
+
+            WebClient webClient = WebClient.builder()
+                .baseUrl(userApiUri)
+                .build();
+
+            // TokenValidationRequest 객체 생성
+            TokenValidationRequest request = new TokenValidationRequest(new TokenDto(token, null));
+
+            return webClient.post()
+                .body(BodyInserters.fromValue(request))
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .onStatus(
+                    HttpStatusCode::isError,
+                    response ->
+                        response.bodyToMono(new ParameterizedTypeReference<Object>() {
+                            })
+                            .flatMap(error -> {
+                                log.error("Error response: {}", error);
+                                return Mono.error(new ApiException(TokenErrorCode.TOKEN_EXCEPTION));
+                            })
+                )
+                .bodyToMono(new ParameterizedTypeReference<TokenValidationResponse>() {
+                })
+                .flatMap(response -> {
+                    // 응답이 왔을 때
+                    log.info("response : {}", response);
+
+                    // 3. 사용자 정보 추가
+                    String userId =
+                        response.getUserId() != null ? response.getUserId().toString() : null;
+
+                    var proxyRequest = exchange.getRequest().mutate()
+                        .header("x-user-id", userId)
+                        .build();
+
+                    var requestBuild = exchange.mutate().request(proxyRequest).build();
+
+                    return chain.filter(requestBuild);
+                })
+                .onErrorMap(e -> {
+                    log.error("", e);
+                    return e;
+                });
+        };
+    }
+
+    public static class Config {
+
+    }
+
+}
