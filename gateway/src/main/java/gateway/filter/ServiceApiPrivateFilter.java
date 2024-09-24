@@ -44,6 +44,7 @@ public class ServiceApiPrivateFilter extends
             }
 
             String token = headers.get(0);
+            log.info("Authorization : {}", token);
 
             // 2. 토큰 유효성
             String userApiUri = UriComponentsBuilder

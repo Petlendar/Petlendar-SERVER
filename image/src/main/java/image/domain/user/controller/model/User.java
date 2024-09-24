@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class User {
 
-    private Long id;
+    private Long userId;
     private String email;
     private UserRole role;
 

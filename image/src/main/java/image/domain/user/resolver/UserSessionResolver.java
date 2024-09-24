@@ -52,7 +52,7 @@ public class UserSessionResolver implements HandlerMethodArgumentResolver {
             RequestAttributes.SCOPE_REQUEST);
 
         return User.builder()
-            .id(Long.parseLong(userId.toString()))
+            .userId(Long.parseLong(userId.toString()))
             .email(email.toString())
             .role(UserRole.valueOf(role.toString()))
             .build();
