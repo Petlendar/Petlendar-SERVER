@@ -1,6 +1,6 @@
-package db.user;
+package db.domain.user;
 
-import db.user.enums.UserStatus;
+import db.domain.user.enums.UserStatus;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

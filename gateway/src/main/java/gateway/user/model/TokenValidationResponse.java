@@ -1,6 +1,6 @@
 package gateway.user.model;
 
-import db.user.enums.UserRole;
+import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

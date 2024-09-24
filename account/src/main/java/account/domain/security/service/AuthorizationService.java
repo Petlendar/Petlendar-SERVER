@@ -2,9 +2,9 @@ package account.domain.security.service;
 
 import account.common.error.UserErrorCode;
 import account.common.exception.user.UserNotFoundException;
-import db.user.UserEntity;
-import db.user.UserRepository;
-import db.user.enums.UserStatus;
+import db.domain.user.UserEntity;
+import db.domain.user.UserRepository;
+import db.domain.user.enums.UserStatus;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;

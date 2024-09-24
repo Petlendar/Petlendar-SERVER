@@ -1,7 +1,6 @@
 package account.domain.account.controller.model;
 
-import db.user.enums.UserRole;
-import db.user.enums.UserStatus;
+import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

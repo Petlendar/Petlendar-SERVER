@@ -1,4 +1,4 @@
-package db.token;
+package db.domain.token;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
