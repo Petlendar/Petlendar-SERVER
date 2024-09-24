@@ -20,9 +20,9 @@ public class AccountApiController {
 
     @PostMapping()
     public TokenValidationResponse validationToken(
-        @RequestBody TokenValidationRequest tokenValidationRequest
+        @RequestBody TokenValidationRequest request
     ){
-        TokenValidationResponse response = tokenBusiness.tokenValidation(tokenValidationRequest);
+        TokenValidationResponse response = tokenBusiness.tokenValidation(request.getTokenDto());
         return response;
     }
 
