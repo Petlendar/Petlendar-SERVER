@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PetStatus {
 
-    ALIVE("생존"),
-    DEAD("사망")
+    REGISTERED("등록"),
+    UNREGISTERED("삭제")
     ;
 
     private String description;
