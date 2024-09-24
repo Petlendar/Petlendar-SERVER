@@ -1,4 +1,4 @@
-package image.common.interceptor;
+package image.domain.user.interceptor;
 
 import image.common.error.UserErrorCode;
 import image.common.exception.user.UserNotFoundException;
