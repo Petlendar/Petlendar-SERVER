@@ -1,8 +1,7 @@
-package image.common.resolver;
+package pet.domain.user.resolver;
 
 import db.domain.user.enums.UserRole;
 import global.annotation.UserSession;
-import image.domain.user.controller.model.User;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import pet.domain.user.controller.model.User;
 
 @Component
 @RequiredArgsConstructor

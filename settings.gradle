@@ -5,4 +5,5 @@ include 'user'
 include 'image'
 include 'gateway'
 include 'account'
+include 'pet'
 
