@@ -2,6 +2,7 @@ package db.domain.pet;
 
 import db.common.BaseEntity;
 import db.domain.pet.enums.PetCategory;
+import db.domain.pet.enums.PetStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,7 +35,8 @@ public class PetEntity extends BaseEntity {
 
     private float weight;
 
-    private String phone;
+    @Enumerated(EnumType.STRING)
+    private PetStatus status;
 
     private LocalDateTime registeredAt;
 
