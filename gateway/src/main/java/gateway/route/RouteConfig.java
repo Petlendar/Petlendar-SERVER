@@ -22,15 +22,17 @@ public class RouteConfig {
                     .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/user(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8081") // 라우팅할 주소
+                .uri("http://localhost:8083") // 라우팅할 주소
             )
             // Image 모듈로 라우팅 테스트
             .route(spec -> spec.order(-1)
                 .path("/image/**")
                 .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/image(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8082") 
+                .uri("http://localhost:8082")
             )
-            .build();    }
+            .build();
+    }
 }

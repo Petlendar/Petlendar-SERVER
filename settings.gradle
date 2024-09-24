@@ -4,4 +4,5 @@ include 'db'
 include 'user'
 include 'image'
 include 'gateway'
+include 'account'
 

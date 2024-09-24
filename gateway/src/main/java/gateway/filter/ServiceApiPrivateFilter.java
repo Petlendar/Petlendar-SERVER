@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -48,13 +49,14 @@ public class ServiceApiPrivateFilter extends
             String userApiUri = UriComponentsBuilder
                 .fromUriString("http://localhost") // URL 수정
                 .port(8081)
-                .path("/open-api/token") // 경로 추가
+                .path("/api/account") // 경로 추가
                 .build()
                 .encode()
                 .toUriString();
 
             WebClient webClient = WebClient.builder()
                 .baseUrl(userApiUri)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, token)
                 .build();
 
             // TokenValidationRequest 객체 생성
@@ -83,6 +85,8 @@ public class ServiceApiPrivateFilter extends
                     // 3. 사용자 정보 추가
                     String userId =
                         response.getUserId() != null ? response.getUserId().toString() : null;
+
+                    log.info("result user Id : {} ", userId);
 
                     var proxyRequest = exchange.getRequest().mutate()
                         .header("x-user-id", userId)
