@@ -1,15 +1,15 @@
-package db.user.enums;
+package db.domain.user.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum UserStatus {
+public enum UserRole {
 
-    REGISTERED("등록"),
-    UNREGISTERED("탈퇴"),
-    DORMANT("휴면")
+    BASIC("사용자"),
+    MANAGER("관리자"),
+    HOSPITAL("병원")
     ;
 
     private String description;

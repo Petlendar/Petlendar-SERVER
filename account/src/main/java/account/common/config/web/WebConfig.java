@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class WebConfig implements WebMvcConfigurer {
 
-    private final List<String> URL = List.of("http://localhost:8081");
+    private final List<String> URL = List.of("http://localhost:9090");
 
     private final List<String> METHODS = List.of("GET", "OPTIONS", "POST");
 

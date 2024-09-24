@@ -1,8 +1,8 @@
-package db.user;
+package db.domain.user;
 
 import db.common.BaseEntity;
-import db.user.enums.UserRole;
-import db.user.enums.UserStatus;
+import db.domain.user.enums.UserRole;
+import db.domain.user.enums.UserStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

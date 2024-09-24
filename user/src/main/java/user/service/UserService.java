@@ -1,8 +1,8 @@
 package user.service;
 
-import db.user.UserEntity;
-import db.user.UserRepository;
-import db.user.enums.UserStatus;
+import db.domain.user.UserEntity;
+import db.domain.user.UserRepository;
+import db.domain.user.enums.UserStatus;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;

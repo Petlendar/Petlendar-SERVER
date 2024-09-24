@@ -34,6 +34,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     implementation project(":global")
+    implementation project(":db")
 }
 
 dependencyManagement {

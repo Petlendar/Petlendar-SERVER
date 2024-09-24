@@ -1,6 +1,7 @@
 package gateway.route;
 
 import gateway.filter.ServiceApiPrivateFilter;
+import gateway.filter.ServiceApiPublicFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class RouteConfig {
 
     private final ServiceApiPrivateFilter serviceApiPrivateFilter;
+    private final ServiceApiPublicFilter serviceApiPublicFilter;
 
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
@@ -24,7 +26,6 @@ public class RouteConfig {
                 )
                 .uri("http://localhost:8083") // 라우팅할 주소
             )
-            // Image 모듈로 라우팅 테스트
             .route(spec -> spec.order(-1)
                 .path("/image/**")
                 .filters(filterSpec -> filterSpec
@@ -34,5 +35,6 @@ public class RouteConfig {
                 .uri("http://localhost:8082")
             )
             .build();
+
     }
 }

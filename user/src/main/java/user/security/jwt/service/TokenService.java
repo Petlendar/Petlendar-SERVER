@@ -1,7 +1,7 @@
 package user.security.jwt.service;
 
-import db.token.RefreshTokenEntity;
-import db.token.RefreshTokenRepository;
+import db.domain.token.RefreshTokenEntity;
+import db.domain.token.RefreshTokenRepository;
 import global.errorcode.ErrorCode;
 import java.util.HashMap;
 import java.util.Map;

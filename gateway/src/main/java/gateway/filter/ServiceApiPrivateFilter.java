@@ -83,13 +83,14 @@ public class ServiceApiPrivateFilter extends
                     log.info("response : {}", response);
 
                     // 3. 사용자 정보 추가
-                    String userId =
-                        response.getUserId() != null ? response.getUserId().toString() : null;
-
-                    log.info("result user Id : {} ", userId);
+                    String userId = response.getUserId() != null ? response.getUserId().toString() : null;
+                    String email = response.getEmail() != null ? response.getEmail() : null;
+                    String role = response.getRole() != null ? response.getRole().name() : null;
 
                     var proxyRequest = exchange.getRequest().mutate()
                         .header("x-user-id", userId)
+                        .header("x-user-email", email)
+                        .header("x-user-role", role)
                         .build();
 
                     var requestBuild = exchange.mutate().request(proxyRequest).build();

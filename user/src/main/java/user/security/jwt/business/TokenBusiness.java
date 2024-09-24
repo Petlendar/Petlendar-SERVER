@@ -1,7 +1,7 @@
 package user.security.jwt.business;
 
-import db.token.RefreshTokenEntity;
-import db.user.UserEntity;
+import db.domain.token.RefreshTokenEntity;
+import db.domain.user.UserEntity;
 import global.annotation.Business;
 import global.errorcode.ErrorCode;
 import lombok.RequiredArgsConstructor;
