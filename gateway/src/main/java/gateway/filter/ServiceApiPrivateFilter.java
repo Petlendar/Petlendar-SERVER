@@ -1,5 +1,6 @@
 package gateway.filter;
 
+import gateway.common.exception.jwt.TokenException;
 import gateway.user.model.TokenDto;
 import gateway.user.model.TokenValidationRequest;
 import gateway.user.model.TokenValidationResponse;
@@ -39,7 +40,7 @@ public class ServiceApiPrivateFilter extends
             List<String> headers = exchange.getRequest().getHeaders().get("Authorization");
 
             if (headers == null || headers.isEmpty()) {
-                throw new ApiException(TokenErrorCode.NON_TOKEN_HEADER);
+                throw new TokenException(TokenErrorCode.NON_TOKEN_HEADER);
             }
 
             String token = headers.get(0);
@@ -73,7 +74,7 @@ public class ServiceApiPrivateFilter extends
                             })
                             .flatMap(error -> {
                                 log.error("Error response: {}", error);
-                                return Mono.error(new ApiException(TokenErrorCode.TOKEN_EXCEPTION));
+                                return Mono.error(new TokenException(TokenErrorCode.TOKEN_EXCEPTION));
                             })
                 )
                 .bodyToMono(new ParameterizedTypeReference<TokenValidationResponse>() {
