@@ -1,6 +1,6 @@
 package user.controller.model.login;
 
-import db.user.enums.UserRole;
+import db.domain.user.enums.UserRole;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

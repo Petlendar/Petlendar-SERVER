@@ -2,8 +2,10 @@ package db.domain.image;
 
 
 import db.common.BaseEntity;
+import db.domain.image.enums.ImageKind;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,8 +29,12 @@ public class ImageEntity extends BaseEntity {
 
     private String extension;
 
+    private ImageKind kind;
+
     private Long petId;
 
     private Long boardId;
+
+    private LocalDateTime registeredAt;
 
 }

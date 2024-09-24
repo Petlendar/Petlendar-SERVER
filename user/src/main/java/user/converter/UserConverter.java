@@ -1,7 +1,7 @@
 package user.converter;
 
-import db.user.UserEntity;
-import db.user.enums.UserRole;
+import db.domain.user.UserEntity;
+import db.domain.user.enums.UserRole;
 import global.annotation.Converter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,6 @@
 package user.business;
 
-import db.user.UserEntity;
+import db.domain.user.UserEntity;
 import global.annotation.Business;
 import lombok.RequiredArgsConstructor;
 import user.common.response.MessageConverter;

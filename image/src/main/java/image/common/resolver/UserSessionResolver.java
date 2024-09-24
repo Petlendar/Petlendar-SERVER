@@ -1,6 +1,6 @@
 package image.common.resolver;
 
-import db.user.enums.UserRole;
+import db.domain.user.enums.UserRole;
 import global.annotation.UserSession;
 import image.domain.user.controller.model.User;
 import java.util.Objects;
