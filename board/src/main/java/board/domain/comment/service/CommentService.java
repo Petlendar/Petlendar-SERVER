@@ -1,5 +1,7 @@
 package board.domain.comment.service;
 
+import board.common.error.CommentErrorCode;
+import board.common.exception.comment.CommentNotFoundException;
 import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.update.CommentUpdateRequest;
 import db.domain.board.BoardRepository;
@@ -28,14 +30,16 @@ public class CommentService {
         Boolean existsByComment = commentRepository.existsByIdAndUserIdAndStatusNot(commentId,
             userId, CommentStatus.UNREGISTERED);
         if (!existsByComment) {
-            throw new RuntimeException("댓글이 존재하지 않습니다.");
+            throw new CommentNotFoundException(CommentErrorCode.COMMENT_NOT_FOUND);
         }
 
     }
 
     public CommentEntity getCommentBy(Long commentId) {
-        return commentRepository.findFirstByIdAndStatusNotOrderByIdDesc(commentId,
-            CommentStatus.UNREGISTERED).orElseThrow(() -> new RuntimeException("댓글이 존재하지 않습니다."));
+        return commentRepository.findFirstByIdAndStatusNotOrderByIdDesc(commentId, CommentStatus.UNREGISTERED)
+            .orElseThrow(() ->
+                new CommentNotFoundException(CommentErrorCode.COMMENT_NOT_FOUND)
+            );
     }
 
     public CommentEntity update(CommentEntity commentEntity, CommentUpdateRequest updateRequest) {
