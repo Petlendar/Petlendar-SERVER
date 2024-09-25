@@ -1,5 +1,7 @@
 package board.domain.comment.business;
 
+import board.common.response.MessageConverter;
+import board.common.response.MessageResponse;
 import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
@@ -18,6 +20,7 @@ public class CommentBusiness {
     private final CommentService commentService;
     private final BoardService boardService;
     private final CommentConverter commentConverter;
+    private final MessageConverter messageConverter;
 
     public CommentRegisterResponse register(CommentRegisterRequest registerRequest, Long userId) {
 
@@ -41,4 +44,16 @@ public class CommentBusiness {
         return commentConverter.toUpdateResponse(updatedEntity);
 
     }
+
+    public MessageResponse unregister(Long commentId, Long userId) {
+
+        // 댓글 존재 유무 확인
+        commentService.notExistsByCommentWithThrow(commentId, userId);
+
+        CommentEntity commentEntity = commentService.getCommentBy(commentId);
+        commentService.unregister(commentEntity);
+
+        return messageConverter.toResponse("댓글이 삭제되었습니다.");
+    }
+
 }

@@ -41,4 +41,11 @@ public class CommentService {
         commentEntity.setModifiedAt(LocalDateTime.now());
         return commentRepository.save(commentEntity);
     }
+
+    public void unregister(CommentEntity commentEntity) {
+        commentEntity.setUnregisteredAt(LocalDateTime.now());
+        commentEntity.setStatus(CommentStatus.UNREGISTERED);
+        commentRepository.save(commentEntity);
+    }
+
 }
