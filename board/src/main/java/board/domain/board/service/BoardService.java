@@ -1,5 +1,7 @@
 package board.domain.board.service;
 
+import board.common.error.BoardErrorCode;
+import board.common.exception.board.BoardNotFoundException;
 import board.domain.board.controller.model.update.BoardUpdateRequest;
 import db.domain.board.BoardEntity;
 import db.domain.board.BoardRepository;
@@ -23,14 +25,14 @@ public class BoardService {
 
     public BoardEntity getBoardBy(Long boardId) {
         return boardRepository.findFirstByIdAndStatusNotOrderByIdDesc(boardId, BoardStatus.UNREGISTERED)
-            .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+            .orElseThrow(() -> new BoardNotFoundException(BoardErrorCode.BOARD_NOT_FOUND));
     }
 
     public void notExistsByBoardWithThrow(Long boardId, Long userId) {
         Boolean existsByBoard = boardRepository.existsByIdAndUserIdAndStatusNot(
             boardId, userId, BoardStatus.UNREGISTERED);
         if (!existsByBoard) {
-            throw new RuntimeException("게시글이 존재하지 않습니다.");
+            throw new BoardNotFoundException(BoardErrorCode.BOARD_NOT_FOUND);
         }
     }
 
