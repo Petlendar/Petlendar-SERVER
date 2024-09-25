@@ -3,14 +3,15 @@ package pet.domain.pet.controller;
 import global.annotation.UserSession;
 import global.api.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pet.domain.pet.business.PetBusiness;
-import pet.domain.pet.controller.model.PetRegisterRequest;
-import pet.domain.pet.controller.model.PetRegisterResponse;
+import pet.domain.pet.business.response.MessageResponse;
+import pet.domain.pet.controller.model.register.PetRegisterRequest;
+import pet.domain.pet.controller.model.register.PetRegisterResponse;
 import pet.domain.user.controller.model.User;
 
 @RestController
@@ -28,5 +29,12 @@ public class PetApiController {
         PetRegisterResponse response = petBusiness.register(registerRequest.getBody(), user.getId());
         return Api.OK(response);
     }
+
+    @PostMapping("/unregister/{petId}")
+    public Api<MessageResponse> unregister(@PathVariable Long petId, @UserSession User user) {
+        MessageResponse response = petBusiness.unregister(petId, user.getId());
+        return Api.OK(response);
+    }
+
 
 }

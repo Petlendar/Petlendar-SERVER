@@ -1,4 +1,4 @@
-package pet.domain.pet.controller.model;
+package pet.domain.pet.controller.model.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

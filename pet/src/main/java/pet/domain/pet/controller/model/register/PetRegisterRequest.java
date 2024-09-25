@@ -1,4 +1,4 @@
-package pet.domain.pet.controller.model;
+package pet.domain.pet.controller.model.register;
 
 import db.domain.pet.enums.PetCategory;
 import java.time.LocalDate;
