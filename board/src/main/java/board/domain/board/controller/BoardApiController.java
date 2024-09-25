@@ -4,6 +4,8 @@ import board.common.response.MessageResponse;
 import board.domain.board.business.BoardBusiness;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
+import board.domain.board.controller.model.update.BoardUpdateRequest;
+import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.user.controller.model.User;
 import global.annotation.UserSession;
 import global.api.Api;
@@ -36,6 +38,15 @@ public class BoardApiController {
         @UserSession User user)
     {
         MessageResponse response = boardBusiness.unregister(boardId, user.getId());
+        return Api.OK(response);
+    }
+
+    @PostMapping("/update")
+    public Api<BoardUpdateResponse> update(
+        @RequestBody Api<BoardUpdateRequest> updateRequest,
+        @UserSession User user)
+    {
+        BoardUpdateResponse response = boardBusiness.update(updateRequest.getBody(), user.getId());
         return Api.OK(response);
     }
 }
