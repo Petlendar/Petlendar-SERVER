@@ -1,10 +1,13 @@
 package board.domain.comment.service;
 
+import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.update.CommentUpdateRequest;
+import db.domain.board.BoardRepository;
 import db.domain.comment.CommentEntity;
 import db.domain.comment.CommentRepository;
 import db.domain.comment.enums.CommentStatus;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +35,7 @@ public class CommentService {
 
     public CommentEntity getCommentBy(Long commentId) {
         return commentRepository.findFirstByIdAndStatusNotOrderByIdDesc(commentId,
-            CommentStatus.UNREGISTERED).orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+            CommentStatus.UNREGISTERED).orElseThrow(() -> new RuntimeException("댓글이 존재하지 않습니다."));
     }
 
     public CommentEntity update(CommentEntity commentEntity, CommentUpdateRequest updateRequest) {
@@ -48,4 +51,10 @@ public class CommentService {
         commentRepository.save(commentEntity);
     }
 
+    // EMPTY 가능
+    public List<CommentEntity> getCommentListBy(Long boardId) {
+        return commentRepository.findAllByBoardIdAndStatusNotOrderByRegisteredAtAsc(
+            boardId, CommentStatus.UNREGISTERED);
+
+    }
 }

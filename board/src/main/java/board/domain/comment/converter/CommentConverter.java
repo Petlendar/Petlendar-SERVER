@@ -1,10 +1,12 @@
 package board.domain.comment.converter;
 
+import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
 import board.domain.comment.controller.model.update.CommentUpdateResponse;
 import db.domain.comment.CommentEntity;
 import global.annotation.Converter;
+import java.util.List;
 
 @Converter
 public class CommentConverter {
@@ -23,6 +25,25 @@ public class CommentConverter {
             .registeredAt(commentEntity.getRegisteredAt())
             .boardId(commentEntity.getBoardId())
             .userId(commentEntity.getUserId())
+            .build();
+    }
+
+    public List<CommentDetailResponse> toResponse(List<CommentEntity> commentEntityList) {
+        return commentEntityList.stream()
+            .map(commentEntity ->
+                this.toDetailResponse(commentEntity)
+            ).toList();
+    }
+
+    public CommentDetailResponse toDetailResponse(CommentEntity commentEntity) {
+        return CommentDetailResponse.builder()
+            .commentId(commentEntity.getId())
+            .content(commentEntity.getContent())
+            .status(commentEntity.getStatus())
+            .registeredAt(commentEntity.getRegisteredAt())
+            .modifiedAt(commentEntity.getModifiedAt())
+            .userId(commentEntity.getUserId())
+            .boardId(commentEntity.getBoardId())
             .build();
     }
 
