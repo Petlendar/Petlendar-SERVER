@@ -1,5 +1,6 @@
 package board.domain.comment.service;
 
+import board.domain.comment.controller.model.update.CommentUpdateRequest;
 import db.domain.comment.CommentEntity;
 import db.domain.comment.CommentRepository;
 import db.domain.comment.enums.CommentStatus;
@@ -20,4 +21,24 @@ public class CommentService {
         return commentRepository.save(commentEntity);
     }
 
+    public void notExistsByCommentWithThrow(Long commentId, Long userId) {
+        Boolean existsByComment = commentRepository.existsByIdAndUserIdAndStatusNot(commentId,
+            userId, CommentStatus.UNREGISTERED);
+        if (!existsByComment) {
+            throw new RuntimeException("댓글이 존재하지 않습니다.");
+        }
+
+    }
+
+    public CommentEntity getCommentBy(Long commentId) {
+        return commentRepository.findFirstByIdAndStatusNotOrderByIdDesc(commentId,
+            CommentStatus.UNREGISTERED).orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+    }
+
+    public CommentEntity update(CommentEntity commentEntity, CommentUpdateRequest updateRequest) {
+        commentEntity.setContent(updateRequest.getContent());
+        commentEntity.setStatus(CommentStatus.MODIFIED);
+        commentEntity.setModifiedAt(LocalDateTime.now());
+        return commentRepository.save(commentEntity);
+    }
 }

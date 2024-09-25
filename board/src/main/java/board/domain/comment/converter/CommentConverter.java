@@ -1,7 +1,8 @@
 package board.domain.comment.converter;
 
-import board.domain.comment.controller.model.CommentRegisterRequest;
-import board.domain.comment.controller.model.CommentRegisterResponse;
+import board.domain.comment.controller.model.register.CommentRegisterRequest;
+import board.domain.comment.controller.model.register.CommentRegisterResponse;
+import board.domain.comment.controller.model.update.CommentUpdateResponse;
 import db.domain.comment.CommentEntity;
 import global.annotation.Converter;
 
@@ -22,6 +23,15 @@ public class CommentConverter {
             .registeredAt(commentEntity.getRegisteredAt())
             .boardId(commentEntity.getBoardId())
             .userId(commentEntity.getUserId())
+            .build();
+    }
+
+    public CommentUpdateResponse toUpdateResponse(CommentEntity updatedEntity) {
+        return CommentUpdateResponse.builder()
+            .commentId(updatedEntity.getId())
+            .status(updatedEntity.getStatus())
+            .modifiedAt(updatedEntity.getModifiedAt())
+            .userId(updatedEntity.getUserId())
             .build();
     }
 
