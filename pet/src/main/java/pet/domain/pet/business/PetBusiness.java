@@ -8,6 +8,7 @@ import pet.domain.pet.business.response.MessageConverter;
 import pet.domain.pet.business.response.MessageResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
+import pet.domain.pet.controller.model.update.PetUpdateRequest;
 import pet.domain.pet.converter.PetConverter;
 import pet.domain.pet.service.PetService;
 
@@ -44,5 +45,13 @@ public class PetBusiness {
         return messageConverter.toResponse("반려동물이 삭제되었습니다.");
     }
 
+    public MessageResponse update(PetUpdateRequest petUpdateRequest, Long userId) {
 
+        // 존재하지 않으면 예외
+        petService.notExistsByPetWithThrow(petUpdateRequest.getPetId(), userId);
+
+        PetEntity petEntity = petService.getPetBy(petUpdateRequest.getPetId(), PetStatus.REGISTERED);
+        petService.update(petEntity, petUpdateRequest);
+        return messageConverter.toResponse("반려동물 정보가 수정되었습니다.");
+    }
 }
