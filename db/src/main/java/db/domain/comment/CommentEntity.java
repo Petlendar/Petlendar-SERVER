@@ -3,6 +3,8 @@ package db.domain.comment;
 import db.common.BaseEntity;
 import db.domain.comment.enums.CommentStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class CommentEntity extends BaseEntity {
 
     private String content;
 
+    @Enumerated(EnumType.STRING)
     private CommentStatus status;
 
     private LocalDateTime registeredAt;

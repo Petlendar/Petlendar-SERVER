@@ -4,6 +4,8 @@ import db.common.BaseEntity;
 import db.domain.board.enums.BoardStatus;
 import db.domain.pet.enums.PetCategory;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -25,8 +27,10 @@ public class BoardEntity extends BaseEntity {
 
     private String content;
 
+    @Enumerated(EnumType.STRING)
     private PetCategory category;
 
+    @Enumerated(EnumType.STRING)
     private BoardStatus status;
 
     private LocalDateTime registeredAt;
