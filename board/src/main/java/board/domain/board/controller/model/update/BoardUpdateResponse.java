@@ -1,4 +1,4 @@
-package board.domain.board.controller.model.register;
+package board.domain.board.controller.model.update;
 
 import db.domain.board.enums.BoardStatus;
 import db.domain.pet.enums.PetCategory;
@@ -12,17 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BoardRegisterResponse {
+public class BoardUpdateResponse {
 
     private Long boardId;
 
-    private String title;
-
-    private PetCategory category;
-
     private BoardStatus status;
 
-    private LocalDateTime registeredAt;
+    private LocalDateTime modifiedAt;
 
     private Long userId;
 

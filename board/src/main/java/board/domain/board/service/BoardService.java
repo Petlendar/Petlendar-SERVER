@@ -1,5 +1,6 @@
 package board.domain.board.service;
 
+import board.domain.board.controller.model.update.BoardUpdateRequest;
 import db.domain.board.BoardEntity;
 import db.domain.board.BoardRepository;
 import db.domain.board.enums.BoardStatus;
@@ -37,5 +38,14 @@ public class BoardService {
         boardEntity.setUnregisteredAt(LocalDateTime.now());
         boardEntity.setStatus(BoardStatus.UNREGISTERED);
         boardRepository.save(boardEntity);
+    }
+
+    public BoardEntity update(BoardEntity boardEntity, BoardUpdateRequest updateRequest) {
+        boardEntity.setTitle(updateRequest.getTitle());
+        boardEntity.setContent(updateRequest.getContent());
+        boardEntity.setCategory(updateRequest.getCategory());
+        boardEntity.setStatus(BoardStatus.MODIFIED);
+        boardEntity.setModifiedAt(LocalDateTime.now());
+        return boardRepository.save(boardEntity);
     }
 }
