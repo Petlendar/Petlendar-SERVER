@@ -1,4 +1,4 @@
-package board.domain.comment.controller.model;
+package board.domain.comment.controller.model.register;
 
 import db.domain.comment.enums.CommentStatus;
 import java.time.LocalDateTime;

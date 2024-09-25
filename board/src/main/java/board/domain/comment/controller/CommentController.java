@@ -1,8 +1,10 @@
 package board.domain.comment.controller;
 
 import board.domain.comment.business.CommentBusiness;
-import board.domain.comment.controller.model.CommentRegisterRequest;
-import board.domain.comment.controller.model.CommentRegisterResponse;
+import board.domain.comment.controller.model.register.CommentRegisterRequest;
+import board.domain.comment.controller.model.register.CommentRegisterResponse;
+import board.domain.comment.controller.model.update.CommentUpdateRequest;
+import board.domain.comment.controller.model.update.CommentUpdateResponse;
 import board.domain.user.controller.model.User;
 import global.annotation.UserSession;
 import global.api.Api;
@@ -25,6 +27,15 @@ public class CommentController {
         @UserSession User user
     ) {
         CommentRegisterResponse response = commentBusiness.register(registerRequest.getBody(), user.getId());
+        return Api.OK(response);
+    }
+
+    @PostMapping("/update")
+    public Api<CommentUpdateResponse> update(
+        @RequestBody Api<CommentUpdateRequest> updateRequest,
+        @UserSession User user)
+    {
+        CommentUpdateResponse response = commentBusiness.update(updateRequest.getBody(), user.getId());
         return Api.OK(response);
     }
 

@@ -1,4 +1,4 @@
-package board.domain.comment.controller.model;
+package board.domain.comment.controller.model.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
