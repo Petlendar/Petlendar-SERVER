@@ -6,6 +6,9 @@ import db.domain.pet.enums.PetStatus;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pet.common.error.PetErrorCode;
+import pet.common.exception.pet.ExistsPetException;
+import pet.common.exception.pet.PetNotFoundException;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.update.PetUpdateRequest;
 
@@ -21,7 +24,7 @@ public class PetService {
 
     public PetEntity getPetBy(Long petId, PetStatus status) {
         return petRepository.findFirstByIdAndStatusOrderByIdDesc(petId, status)
-            .orElseThrow(() -> new RuntimeException("존재하지 않는 반려동물입니다."));
+            .orElseThrow(() -> new PetNotFoundException(PetErrorCode.PET_NOT_FOUND));
     }
 
     public void unregister(PetEntity petEntity) {
@@ -34,7 +37,7 @@ public class PetService {
         Boolean existsByPet = petRepository.existsByNameAndBirthAndUserIdAndStatus(
             request.getName(), request.getBirth(), userId, PetStatus.REGISTERED);
         if (existsByPet) {
-            throw new RuntimeException("이미 등록된 반려동물입니다."); // TODO 예외처리
+            throw new ExistsPetException(PetErrorCode.EXISTS_PET);
         }
     }
 
