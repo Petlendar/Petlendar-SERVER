@@ -1,11 +1,14 @@
 package board.domain.board.converter;
 
+import board.domain.board.controller.model.detail.BoardDetailResponse;
+import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
-import board.domain.board.controller.model.update.BoardUpdateRequest;
 import board.domain.board.controller.model.update.BoardUpdateResponse;
 import db.domain.board.BoardEntity;
+import db.domain.comment.CommentEntity;
 import global.annotation.Converter;
+import java.util.List;
 
 @Converter
 public class BoardConverter {
@@ -17,6 +20,21 @@ public class BoardConverter {
             .category(request.getCategory())
             .build();
 
+    }
+
+    public BoardDetailResponse toResponse(BoardEntity boardEntity,
+        List<CommentDetailResponse> commentDetailList) {
+        return BoardDetailResponse.builder()
+            .id(boardEntity.getUserId())
+            .title(boardEntity.getTitle())
+            .content(boardEntity.getContent())
+            .category(boardEntity.getCategory())
+            .status(boardEntity.getStatus())
+            .registeredAt(boardEntity.getRegisteredAt())
+            .modifiedAt(boardEntity.getModifiedAt())
+            .userId(boardEntity.getUserId())
+            .commentList(commentDetailList)
+            .build();
     }
 
     public BoardRegisterResponse toResponse(BoardEntity savedBoardEntity) {
