@@ -5,7 +5,6 @@ import gateway.user.model.TokenDto;
 import gateway.user.model.TokenValidationRequest;
 import gateway.user.model.TokenValidationResponse;
 import global.errorcode.TokenErrorCode;
-import global.exception.ApiException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;

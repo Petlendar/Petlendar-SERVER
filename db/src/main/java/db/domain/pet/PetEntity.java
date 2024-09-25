@@ -40,6 +40,8 @@ public class PetEntity extends BaseEntity {
 
     private LocalDateTime registeredAt;
 
+    private LocalDateTime unregisteredAt;
+
     private Long userId;
 
 }

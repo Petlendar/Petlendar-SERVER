@@ -4,8 +4,8 @@ import db.domain.pet.PetEntity;
 import db.domain.pet.enums.PetStatus;
 import global.annotation.Converter;
 import java.time.LocalDateTime;
-import pet.domain.pet.controller.model.PetRegisterRequest;
-import pet.domain.pet.controller.model.PetRegisterResponse;
+import pet.domain.pet.controller.model.register.PetRegisterRequest;
+import pet.domain.pet.controller.model.register.PetRegisterResponse;
 
 @Converter
 public class PetConverter {
