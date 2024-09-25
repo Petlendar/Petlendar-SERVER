@@ -9,7 +9,6 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.board.converter.BoardConverter;
 import board.domain.board.service.BoardService;
 import db.domain.board.BoardEntity;
-import db.domain.board.enums.BoardStatus;
 import global.annotation.Business;
 import lombok.RequiredArgsConstructor;
 

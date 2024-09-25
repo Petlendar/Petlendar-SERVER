@@ -36,6 +36,14 @@ public class BoardService {
         }
     }
 
+    public void notExistsByBoardWithThrow(Long boardId) {
+        Boolean existsByBoard = boardRepository.existsByIdAndStatusNot(
+            boardId, BoardStatus.UNREGISTERED);
+        if (!existsByBoard) {
+            throw new BoardNotFoundException(BoardErrorCode.BOARD_NOT_FOUND);
+        }
+    }
+
     public void unregister(BoardEntity boardEntity) {
         boardEntity.setUnregisteredAt(LocalDateTime.now());
         boardEntity.setStatus(BoardStatus.UNREGISTERED);
