@@ -6,4 +6,5 @@ include 'image'
 include 'gateway'
 include 'account'
 include 'pet'
+include 'board'
 

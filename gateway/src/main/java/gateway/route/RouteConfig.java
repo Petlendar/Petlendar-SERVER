@@ -42,6 +42,14 @@ public class RouteConfig {
                 )
                 .uri("http://localhost:8084")
             )
+            .route(spec -> spec.order(-1)
+                .path("/board/**")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
+                    .rewritePath("/board(?<segment>/?.*)", "${segment}")
+                )
+                .uri("http://localhost:8085")
+            )
             .build();
 
     }
