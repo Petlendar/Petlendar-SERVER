@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
+import pet.domain.pet.controller.model.update.PetUpdateRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +44,13 @@ public class PetService {
         if (!existsByPet) {
             throw new RuntimeException("존재하지 않는 반려동물입니다."); // TODO 예외처리
         }
+    }
+
+    public void update(PetEntity petEntity, PetUpdateRequest petUpdateRequest) {
+        petEntity.setName(petUpdateRequest.getName());
+        petEntity.setBirth(petUpdateRequest.getBirth());
+        petEntity.setAddress(petUpdateRequest.getAddress());
+        petRepository.save(petEntity);
     }
 
 }
