@@ -1,13 +1,14 @@
 package board.domain.board.controller;
 
+import board.common.response.MessageResponse;
 import board.domain.board.business.BoardBusiness;
-import board.domain.board.controller.model.BoardRegisterRequest;
-import board.domain.board.controller.model.BoardRegisterResponse;
-import board.domain.board.service.BoardService;
+import board.domain.board.controller.model.register.BoardRegisterRequest;
+import board.domain.board.controller.model.register.BoardRegisterResponse;
 import board.domain.user.controller.model.User;
 import global.annotation.UserSession;
 import global.api.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,4 +30,12 @@ public class BoardApiController {
         return Api.OK(response);
     }
 
+    @PostMapping("/unregister/{boardId}")
+    public Api<MessageResponse> unregister(
+        @PathVariable Long boardId,
+        @UserSession User user)
+    {
+        MessageResponse response = boardBusiness.unregister(boardId, user.getId());
+        return Api.OK(response);
+    }
 }

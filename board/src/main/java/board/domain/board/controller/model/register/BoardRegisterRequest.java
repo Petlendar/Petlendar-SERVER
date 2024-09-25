@@ -1,4 +1,4 @@
-package board.domain.board.controller.model;
+package board.domain.board.controller.model.register;
 
 import db.domain.pet.enums.PetCategory;
 import lombok.AllArgsConstructor;

@@ -19,4 +19,23 @@ public class BoardService {
         boardEntity.setRegisteredAt(LocalDateTime.now());
         return boardRepository.save(boardEntity);
     }
+
+    public BoardEntity getBoardBy(Long boardId) {
+        return boardRepository.findFirstByIdAndStatusNotOrderByIdDesc(boardId, BoardStatus.UNREGISTERED)
+            .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+    }
+
+    public void notExistsByBoardWithThrow(Long boardId, Long userId) {
+        Boolean existsByBoard = boardRepository.existsByIdAndUserIdAndStatusNot(
+            boardId, userId, BoardStatus.UNREGISTERED);
+        if (!existsByBoard) {
+            throw new RuntimeException("게시글이 존재하지 않습니다.");
+        }
+    }
+
+    public void unregister(BoardEntity boardEntity) {
+        boardEntity.setUnregisteredAt(LocalDateTime.now());
+        boardEntity.setStatus(BoardStatus.UNREGISTERED);
+        boardRepository.save(boardEntity);
+    }
 }
