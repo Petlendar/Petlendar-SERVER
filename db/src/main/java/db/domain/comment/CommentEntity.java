@@ -35,4 +35,6 @@ public class CommentEntity extends BaseEntity {
 
     private Long boardId;
 
+    private Long userId;
+
 }
