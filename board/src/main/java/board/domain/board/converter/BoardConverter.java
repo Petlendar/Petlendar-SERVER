@@ -1,7 +1,7 @@
 package board.domain.board.converter;
 
-import board.domain.board.controller.model.BoardRegisterRequest;
-import board.domain.board.controller.model.BoardRegisterResponse;
+import board.domain.board.controller.model.register.BoardRegisterRequest;
+import board.domain.board.controller.model.register.BoardRegisterResponse;
 import db.domain.board.BoardEntity;
 import global.annotation.Converter;
 

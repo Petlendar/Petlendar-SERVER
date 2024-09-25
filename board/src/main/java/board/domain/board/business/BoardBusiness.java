@@ -1,10 +1,13 @@
 package board.domain.board.business;
 
-import board.domain.board.controller.model.BoardRegisterRequest;
-import board.domain.board.controller.model.BoardRegisterResponse;
+import board.common.response.MessageConverter;
+import board.common.response.MessageResponse;
+import board.domain.board.controller.model.register.BoardRegisterRequest;
+import board.domain.board.controller.model.register.BoardRegisterResponse;
 import board.domain.board.converter.BoardConverter;
 import board.domain.board.service.BoardService;
 import db.domain.board.BoardEntity;
+import db.domain.board.enums.BoardStatus;
 import global.annotation.Business;
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +17,7 @@ public class BoardBusiness {
 
     private final BoardService boardService;
     private final BoardConverter boardConverter;
+    private final MessageConverter messageConverter;
 
     public BoardRegisterResponse register(BoardRegisterRequest request, Long userId) {
 
@@ -23,4 +27,13 @@ public class BoardBusiness {
         return boardConverter.toResponse(savedBoardEntity);
     }
 
+    public MessageResponse unregister(Long boardId, Long userId) {
+
+        boardService.notExistsByBoardWithThrow(boardId, userId);
+
+        BoardEntity boardEntity = boardService.getBoardBy(boardId);
+        boardService.unregister(boardEntity);
+
+        return messageConverter.toResponse("게시글이 삭제되었습니다.");
+    }
 }

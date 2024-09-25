@@ -45,7 +45,7 @@ public class PetService {
         Boolean existsByPet = petRepository.existsByIdAndUserIdAndStatus(petId, userId,
             PetStatus.REGISTERED);
         if (!existsByPet) {
-            throw new RuntimeException("존재하지 않는 반려동물입니다."); // TODO 예외처리
+            throw new PetNotFoundException(PetErrorCode.PET_NOT_FOUND);
         }
     }
 

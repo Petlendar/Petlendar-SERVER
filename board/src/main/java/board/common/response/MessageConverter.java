@@ -1,4 +1,4 @@
-package pet.domain.pet.business.response;
+package board.common.response;
 
 import global.annotation.Converter;
 
