@@ -3,6 +3,7 @@ package pet.domain.pet.controller;
 import global.annotation.UserSession;
 import global.api.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pet.domain.pet.business.PetBusiness;
 import pet.common.response.MessageResponse;
+import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
 import pet.domain.pet.controller.model.update.PetUpdateRequest;
@@ -46,5 +48,10 @@ public class PetApiController {
         return Api.OK(response);
     }
 
+    @GetMapping("/{petId}")
+    public Api<PetDetailResponse> getPet(@PathVariable Long petId, @UserSession User user) {
+        PetDetailResponse response = petBusiness.getPetBy(petId, user.getId());
+        return Api.OK(response);
+    }
 
 }

@@ -6,11 +6,13 @@ import global.annotation.Business;
 import lombok.RequiredArgsConstructor;
 import pet.common.response.MessageConverter;
 import pet.common.response.MessageResponse;
+import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
 import pet.domain.pet.controller.model.update.PetUpdateRequest;
 import pet.domain.pet.converter.PetConverter;
 import pet.domain.pet.service.PetService;
+import pet.domain.user.controller.model.User;
 
 @Business
 @RequiredArgsConstructor
@@ -54,4 +56,14 @@ public class PetBusiness {
         petService.update(petEntity, petUpdateRequest);
         return messageConverter.toResponse("반려동물 정보가 수정되었습니다.");
     }
+
+    public PetDetailResponse getPetBy(Long petId, Long userId) {
+
+        // 존재하지 않으면 예외
+        petService.notExistsByPetWithThrow(petId, userId);
+
+        PetEntity petEntity = petService.getPetBy(petId, PetStatus.REGISTERED);
+        return petConverter.toDetailResponse(petEntity);
+    }
+
 }
