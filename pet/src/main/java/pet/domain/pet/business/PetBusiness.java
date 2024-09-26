@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import pet.common.response.MessageConverter;
 import pet.common.response.MessageResponse;
+import pet.domain.image.service.ImageService;
 import pet.domain.pet.controller.model.detail.PetListResponse;
 import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
@@ -22,6 +23,7 @@ public class PetBusiness {
     private final PetService petService;
     private final PetConverter petConverter;
     private final MessageConverter messageConverter;
+    private final ImageService imageService;
 
     public PetRegisterResponse register(PetRegisterRequest registerRequest, Long userId) {
 
@@ -33,9 +35,14 @@ public class PetBusiness {
 
         // 저장
         PetEntity petEntity = petConverter.toEntity(registerRequest, userId);
-        PetEntity savedEntity = petService.register(petEntity);
+        PetEntity savedPetEntity = petService.register(petEntity);
 
-        return petConverter.toResponse(savedEntity);
+        /**
+         * ImageId 가 존재하는 경우 Image 를 Pet 과 연결
+         */
+        imageService.linkImageToPet(registerRequest.getImageId(), savedPetEntity);
+
+        return petConverter.toResponse(savedPetEntity);
     }
 
     public MessageResponse unregister(Long petId, Long userId) {

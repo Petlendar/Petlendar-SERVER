@@ -35,6 +35,8 @@ public class ImageEntity extends BaseEntity {
 
     private Long boardId;
 
+    private Long userId;
+
     private LocalDateTime registeredAt;
 
 }
