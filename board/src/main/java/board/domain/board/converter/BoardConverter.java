@@ -5,8 +5,10 @@ import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
 import board.domain.board.controller.model.update.BoardUpdateResponse;
+import board.domain.image.controller.model.ImageResponse;
 import db.domain.board.BoardEntity;
 import db.domain.comment.CommentEntity;
+import db.domain.image.ImageEntity;
 import global.annotation.Converter;
 import java.util.List;
 
@@ -22,8 +24,11 @@ public class BoardConverter {
 
     }
 
-    public BoardDetailResponse toResponse(BoardEntity boardEntity,
-        List<CommentDetailResponse> commentDetailList) {
+    public BoardDetailResponse toResponse(
+        BoardEntity boardEntity,
+        List<ImageResponse> imageResponseList,
+        List<CommentDetailResponse> commentDetailList
+    ) {
         return BoardDetailResponse.builder()
             .id(boardEntity.getUserId())
             .title(boardEntity.getTitle())
@@ -33,6 +38,7 @@ public class BoardConverter {
             .registeredAt(boardEntity.getRegisteredAt())
             .modifiedAt(boardEntity.getModifiedAt())
             .userId(boardEntity.getUserId())
+            .boardImage(imageResponseList)
             .commentList(commentDetailList)
             .build();
     }

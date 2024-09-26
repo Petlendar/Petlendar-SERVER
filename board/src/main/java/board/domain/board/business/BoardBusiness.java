@@ -12,9 +12,12 @@ import board.domain.board.converter.BoardConverter;
 import board.domain.board.service.BoardService;
 import board.domain.comment.converter.CommentConverter;
 import board.domain.comment.service.CommentService;
+import board.domain.image.controller.model.ImageResponse;
+import board.domain.image.converter.ImageConverter;
 import board.domain.image.service.ImageService;
 import db.domain.board.BoardEntity;
 import db.domain.comment.CommentEntity;
+import db.domain.image.ImageEntity;
 import global.annotation.Business;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class BoardBusiness {
     private final BoardConverter boardConverter;
     private final CommentConverter commentConverter;
     private final MessageConverter messageConverter;
+    private final ImageConverter imageConverter;
 
     public BoardRegisterResponse register(BoardRegisterRequest request, Long userId) {
 
@@ -70,12 +74,18 @@ public class BoardBusiness {
         // 게시글 Entity 조회
         BoardEntity boardEntity = boardService.getBoardBy(boardId);
 
+        // 이미지 Entity 조회
+        List<ImageEntity> imageEntityList = imageService.getImageOrEmptyBy(boardId);
+        List<ImageResponse> imageResponseList = imageEntityList.stream()
+            .map(imageEntity -> imageConverter.toResponse(imageEntity))
+            .toList();
+
         // 해당하는 게시글에 대한 댓글 리스트 조회, EMPTY 인 경우가 존재함
         List<CommentEntity> commentEntityList = commentService.getCommentListBy(boardId);
         List<CommentDetailResponse> commentDetailList = commentConverter.toResponse(
             commentEntityList);
 
-        return boardConverter.toResponse(boardEntity, commentDetailList);
+        return boardConverter.toResponse(boardEntity, imageResponseList, commentDetailList);
     }
 
 }

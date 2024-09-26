@@ -1,5 +1,6 @@
 package board.domain.board.controller.model.detail;
 
+import board.domain.image.controller.model.ImageResponse;
 import db.domain.board.enums.BoardStatus;
 import db.domain.pet.enums.PetCategory;
 import java.time.LocalDateTime;
@@ -32,5 +33,7 @@ public class BoardDetailResponse {
     private Long userId;
 
     private List<CommentDetailResponse> commentList;
+
+    private List<ImageResponse> boardImage;
 
 }

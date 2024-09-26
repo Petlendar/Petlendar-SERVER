@@ -3,6 +3,7 @@ package board.domain.image.service;
 import board.common.error.ImageErrorCode;
 import board.common.exception.image.ImageNotFoundException;
 import db.domain.board.BoardEntity;
+import db.domain.image.ImageEntity;
 import db.domain.image.ImageRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,10 @@ public class ImageService {
                 });
             });
         }
+    }
+
+    public List<ImageEntity> getImageOrEmptyBy(Long boardId) {
+        return imageRepository.findAllByBoardIdOrderByIdAsc(boardId);
     }
 
 }
