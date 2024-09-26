@@ -3,16 +3,17 @@ package pet.domain.pet.business;
 import db.domain.pet.PetEntity;
 import db.domain.pet.enums.PetStatus;
 import global.annotation.Business;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import pet.common.response.MessageConverter;
 import pet.common.response.MessageResponse;
+import pet.domain.pet.controller.model.detail.PetListResponse;
 import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
 import pet.domain.pet.controller.model.update.PetUpdateRequest;
 import pet.domain.pet.converter.PetConverter;
 import pet.domain.pet.service.PetService;
-import pet.domain.user.controller.model.User;
 
 @Business
 @RequiredArgsConstructor
@@ -64,6 +65,16 @@ public class PetBusiness {
 
         PetEntity petEntity = petService.getPetBy(petId, PetStatus.REGISTERED);
         return petConverter.toDetailResponse(petEntity);
+    }
+
+    public List<PetListResponse> getPetListBy(Long userId) {
+
+        // userId 로 REGISTERED 인 petEntity 조회
+        List<PetEntity> petEntityList = petService.getPetListBy(userId, PetStatus.REGISTERED);
+
+        return petEntityList.stream().map(petEntity ->
+            petConverter.toListResponse(petEntity)
+        ).toList();
     }
 
 }
