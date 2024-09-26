@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TokenErrorCode implements ErrorCodeIfs {
 
+    // 1100 ~ 1149
     NOT_AUTHENTICATION_USER(401,1100,"로그인이 필요합니다."),
     NOT_AUTHORIZATION_USER(404,1101,"허가된 접근이 아닙니다."),
     INVALID_TOKEN(401,1102,"유효하지 않은 토큰입니다."),

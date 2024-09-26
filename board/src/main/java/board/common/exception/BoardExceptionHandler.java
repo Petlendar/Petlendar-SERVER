@@ -1,8 +1,8 @@
 package board.common.exception;
 
-import board.common.error.BoardErrorCode;
 import board.common.exception.board.BoardNotFoundException;
 import global.api.Api;
+import global.errorcode.BoardErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

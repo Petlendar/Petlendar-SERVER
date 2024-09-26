@@ -1,6 +1,6 @@
 package image.common.config.path;
 
-import image.common.error.ImageErrorCode;
+import global.errorcode.ImageErrorCode;
 import image.common.exception.image.ImageStorageException;
 import image.domain.image.properties.FileStorageProperties;
 import java.nio.file.Files;

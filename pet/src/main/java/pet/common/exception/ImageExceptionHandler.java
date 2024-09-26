@@ -1,13 +1,13 @@
 package pet.common.exception;
 
 import global.api.Api;
+import global.errorcode.ImageErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import pet.common.error.ImageErrorCode;
 import pet.common.exception.image.ImageNotFoundException;
 import pet.common.exception.image.ImageStorageException;
 

@@ -1,7 +1,7 @@
 package image.common.exception;
 
 import global.api.Api;
-import image.common.error.UserErrorCode;
+import global.errorcode.UserErrorCode;
 import image.common.exception.user.ExistUserEmailException;
 import image.common.exception.user.ExistUserNameException;
 import image.common.exception.user.LoginFailException;

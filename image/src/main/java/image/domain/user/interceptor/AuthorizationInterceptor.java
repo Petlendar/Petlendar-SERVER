@@ -1,6 +1,6 @@
 package image.domain.user.interceptor;
 
-import image.common.error.UserErrorCode;
+import global.errorcode.UserErrorCode;
 import image.common.exception.user.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

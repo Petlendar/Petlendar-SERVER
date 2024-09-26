@@ -1,10 +1,10 @@
 package board.domain.image.service;
 
-import board.common.error.ImageErrorCode;
 import board.common.exception.image.ImageNotFoundException;
 import db.domain.board.BoardEntity;
 import db.domain.image.ImageEntity;
 import db.domain.image.ImageRepository;
+import global.errorcode.ImageErrorCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,10 +44,6 @@ public class ImageService {
 
     public List<ImageEntity> getImageOrEmptyBy(Long boardId) {
         return imageRepository.findAllByBoardIdOrderByIdAsc(boardId);
-    }
-
-    public List<ImageEntity> getImageBy(List<Long> boardIdList) {
-        return imageRepository.findAllByBoardIdIn(boardIdList);
     }
 
 }

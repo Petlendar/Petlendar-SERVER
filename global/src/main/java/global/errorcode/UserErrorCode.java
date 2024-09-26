@@ -1,6 +1,5 @@
-package board.common.error;
+package global.errorcode;
 
-import global.errorcode.ErrorCodeIfs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum UserErrorCode implements ErrorCodeIfs {
 
+    // 1150 ~ 1199
     USER_NOT_FOUND(404, 1150, "사용자를 찾을 수 없습니다."),
     EXISTS_USER_EMAIL(403, 1151, "이미 존재하는 아이디입니다."),
     EXISTS_USER_NAME(403, 1152, "이미 존재하는 이름입니다."),
@@ -20,3 +20,4 @@ public enum UserErrorCode implements ErrorCodeIfs {
     private final String description;
 
 }
+

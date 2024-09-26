@@ -1,6 +1,5 @@
 package account.domain.account.business;
 
-import account.common.error.UserErrorCode;
 import account.common.exception.user.UserNotFoundException;
 import account.domain.account.controller.model.TokenValidationResponse;
 import account.domain.account.model.TokenDto;
@@ -9,6 +8,7 @@ import db.domain.user.UserEntity;
 import db.domain.user.UserRepository;
 import db.domain.user.enums.UserStatus;
 import global.annotation.Business;
+import global.errorcode.UserErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

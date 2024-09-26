@@ -1,12 +1,12 @@
 package account.common.exception;
 
 import global.api.Api;
+import global.errorcode.TokenErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import account.common.error.TokenErrorCode;
 import account.common.exception.jwt.TokenException;
 import account.common.exception.jwt.TokenExpiredException;
 import account.common.exception.jwt.TokenSignatureException;

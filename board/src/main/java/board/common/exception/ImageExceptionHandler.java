@@ -1,9 +1,9 @@
 package board.common.exception;
 
-import board.common.error.ImageErrorCode;
 import board.common.exception.image.ImageNotFoundException;
 import board.common.exception.image.ImageStorageException;
 import global.api.Api;
+import global.errorcode.ImageErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
