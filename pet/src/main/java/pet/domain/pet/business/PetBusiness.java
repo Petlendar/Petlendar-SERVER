@@ -1,5 +1,6 @@
 package pet.domain.pet.business;
 
+import db.domain.image.ImageEntity;
 import db.domain.pet.PetEntity;
 import db.domain.pet.enums.PetStatus;
 import global.annotation.Business;
@@ -7,6 +8,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import pet.common.response.MessageConverter;
 import pet.common.response.MessageResponse;
+import pet.domain.image.controller.model.ImageResponse;
+import pet.domain.image.converter.ImageConverter;
 import pet.domain.image.service.ImageService;
 import pet.domain.pet.controller.model.detail.PetListResponse;
 import pet.domain.pet.controller.model.detail.PetDetailResponse;
@@ -22,8 +25,9 @@ public class PetBusiness {
 
     private final PetService petService;
     private final PetConverter petConverter;
-    private final MessageConverter messageConverter;
     private final ImageService imageService;
+    private final ImageConverter imageConverter;
+    private final MessageConverter messageConverter;
 
     public PetRegisterResponse register(PetRegisterRequest registerRequest, Long userId) {
 
@@ -60,7 +64,8 @@ public class PetBusiness {
         // 존재하지 않으면 예외
         petService.notExistsByPetWithThrow(petUpdateRequest.getPetId(), userId);
 
-        PetEntity petEntity = petService.getPetBy(petUpdateRequest.getPetId(), PetStatus.REGISTERED);
+        PetEntity petEntity = petService.getPetBy(petUpdateRequest.getPetId(),
+            PetStatus.REGISTERED);
         petService.update(petEntity, petUpdateRequest);
         return messageConverter.toResponse("반려동물 정보가 수정되었습니다.");
     }
@@ -71,7 +76,12 @@ public class PetBusiness {
         petService.notExistsByPetWithThrow(petId, userId);
 
         PetEntity petEntity = petService.getPetBy(petId, PetStatus.REGISTERED);
-        return petConverter.toDetailResponse(petEntity);
+
+        // 이미지가 등록된 경우가 없으면 null 처리
+        ImageEntity imageEntity = imageService.getImageOrNullBy(petId);
+        ImageResponse imageResponse = (imageEntity != null) ? imageConverter.toResponse(imageEntity) : null;
+
+        return petConverter.toDetailResponse(petEntity, imageResponse);
     }
 
     public List<PetListResponse> getPetListBy(Long userId) {
@@ -79,8 +89,12 @@ public class PetBusiness {
         // userId 로 REGISTERED 인 petEntity 조회
         List<PetEntity> petEntityList = petService.getPetListBy(userId, PetStatus.REGISTERED);
 
-        return petEntityList.stream().map(petEntity ->
-            petConverter.toListResponse(petEntity)
+        return petEntityList.stream().map(petEntity -> {
+                ImageEntity imageEntity = imageService.getImageOrNullBy(petEntity.getId());
+                // 이미지가 등록된 경우가 없으면 null 처리
+                ImageResponse imageResponse = (imageEntity != null) ? imageConverter.toResponse(imageEntity) : null;
+                return petConverter.toListResponse(petEntity, imageResponse);
+            }
         ).toList();
     }
 

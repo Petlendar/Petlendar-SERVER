@@ -9,4 +9,6 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
     boolean existsByIdAndUserId(Long imageId, Long userId);
 
+    Optional<ImageEntity> findFirstByPetIdOrderByIdDesc(Long petId);
+
 }
