@@ -2,11 +2,15 @@ package board.domain.board.service;
 
 import board.common.error.BoardErrorCode;
 import board.common.exception.board.BoardNotFoundException;
+import board.domain.board.controller.model.search.BoardSearchResponse;
 import board.domain.board.controller.model.update.BoardUpdateRequest;
 import db.domain.board.BoardEntity;
 import db.domain.board.BoardRepository;
+import db.domain.board.EntitySearchCondition;
+import db.domain.board.QueryBoardRepository;
 import db.domain.board.enums.BoardStatus;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final QueryBoardRepository queryBoardRepository;
 
     public BoardEntity register(BoardEntity boardEntity, Long userId) {
         boardEntity.setUserId(userId);
@@ -24,7 +29,8 @@ public class BoardService {
     }
 
     public BoardEntity getBoardBy(Long boardId) {
-        return boardRepository.findFirstByIdAndStatusNotOrderByIdDesc(boardId, BoardStatus.UNREGISTERED)
+        return boardRepository.findFirstByIdAndStatusNotOrderByIdDesc(boardId,
+                BoardStatus.UNREGISTERED)
             .orElseThrow(() -> new BoardNotFoundException(BoardErrorCode.BOARD_NOT_FOUND));
     }
 
@@ -58,4 +64,13 @@ public class BoardService {
         boardEntity.setModifiedAt(LocalDateTime.now());
         return boardRepository.save(boardEntity);
     }
+
+    public List<BoardEntity> getBoardSearchBy(EntitySearchCondition searchCondition) {
+        List<BoardEntity> searchList = queryBoardRepository.getBoardSearchBy(searchCondition);
+        if (searchList.isEmpty()) {
+            throw new BoardNotFoundException(BoardErrorCode.BOARD_NOT_FOUND);
+        }
+        return searchList;
+    }
+
 }

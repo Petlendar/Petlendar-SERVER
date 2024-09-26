@@ -14,4 +14,6 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
     List<ImageEntity> findAllByBoardIdOrderByIdAsc(Long boardId);
 
+    List<ImageEntity> findAllByBoardIdIn(List<Long> boardIdList);
+
 }

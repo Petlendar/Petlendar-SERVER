@@ -46,4 +46,8 @@ public class ImageService {
         return imageRepository.findAllByBoardIdOrderByIdAsc(boardId);
     }
 
+    public List<ImageEntity> getImageBy(List<Long> boardIdList) {
+        return imageRepository.findAllByBoardIdIn(boardIdList);
+    }
+
 }
