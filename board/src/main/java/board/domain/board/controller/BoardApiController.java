@@ -57,10 +57,4 @@ public class BoardApiController {
         return Api.OK(response);
     }
 
-    @GetMapping("/{boardId}")
-    public Api<BoardDetailResponse> getBoardDetail(@PathVariable Long boardId) {
-        BoardDetailResponse response = boardBusiness.getBoardDetailBy(boardId);
-        return Api.OK(response);
-    }
-
 }
