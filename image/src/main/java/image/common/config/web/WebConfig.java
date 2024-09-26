@@ -47,7 +47,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
             .addPathPatterns("/**")
-            .excludePathPatterns("/images/**"); // "/images/**" 경로는 제외
+            .excludePathPatterns("/images/**") // "/images/**" 경로는 제외
+            .excludePathPatterns("/swagger-ui/**", "/v3/api-docs/**");
     }
 
     @Override
