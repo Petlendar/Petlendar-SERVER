@@ -1,5 +1,6 @@
 package pet.domain.image.service;
 
+import db.domain.image.ImageEntity;
 import db.domain.image.ImageRepository;
 import db.domain.pet.PetEntity;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,10 @@ public class ImageService {
                     return imageRepository.save(imageEntity);
                 }).orElseThrow(() -> new ImageNotFoundException(ImageErrorCode.IMAGE_NOT_FOUND));
         }
+    }
+
+    public ImageEntity getImageOrNullBy(Long petId) {
+        return imageRepository.findFirstByPetIdOrderByIdDesc(petId).orElse(null);
     }
 
 }

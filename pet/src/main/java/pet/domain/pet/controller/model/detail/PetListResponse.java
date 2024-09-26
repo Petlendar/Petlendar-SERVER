@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pet.domain.image.controller.model.ImageResponse;
 
 @Data
 @NoArgsConstructor
@@ -18,5 +19,7 @@ public class PetListResponse {
     private String name;
 
     private PetCategory category;
+
+    private ImageResponse petImage;
 
 }

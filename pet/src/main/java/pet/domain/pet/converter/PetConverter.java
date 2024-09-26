@@ -5,6 +5,7 @@ import db.domain.pet.enums.PetStatus;
 import global.annotation.Converter;
 import java.time.LocalDateTime;
 import java.util.List;
+import pet.domain.image.controller.model.ImageResponse;
 import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.detail.PetListResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
@@ -34,7 +35,7 @@ public class PetConverter {
             .build();
     }
 
-    public PetDetailResponse toDetailResponse(PetEntity petEntity) {
+    public PetDetailResponse toDetailResponse(PetEntity petEntity, ImageResponse imageResponse) {
         return PetDetailResponse.builder()
             .petId(petEntity.getId())
             .name(petEntity.getName())
@@ -43,14 +44,16 @@ public class PetConverter {
             .category(petEntity.getCategory())
             .weight(petEntity.getWeight())
             .userId(petEntity.getUserId())
+            .petImage(imageResponse)
             .build();
     }
 
-    public PetListResponse toListResponse(PetEntity petEntity) {
+    public PetListResponse toListResponse(PetEntity petEntity, ImageResponse imageResponse) {
         return PetListResponse.builder()
             .petId(petEntity.getId())
             .name(petEntity.getName())
             .category(petEntity.getCategory())
+            .petImage(imageResponse)
             .build();
     }
 }
