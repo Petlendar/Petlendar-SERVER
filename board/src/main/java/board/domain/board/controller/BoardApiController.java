@@ -63,13 +63,4 @@ public class BoardApiController {
         return Api.OK(response);
     }
 
-    @GetMapping()
-    public Api<List<BoardSearchResponse>> getBoardSearchBy(
-        @ModelAttribute SearchCondition condition,
-        @PageableDefault(sort = "registeredAt", direction = Sort.Direction.DESC) Pageable page // default size = 10
-    ) {
-        List<BoardSearchResponse> response = boardBusiness.getBoardSearchBy(condition, page);
-        return Api.OK(response);
-    }
-
 }

@@ -1,4 +1,4 @@
-package global.exception;
+package global.exception.api;
 
 import global.errorcode.ErrorCodeIfs;
 
