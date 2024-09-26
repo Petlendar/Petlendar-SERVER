@@ -7,4 +7,6 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
     Optional<ImageEntity> findFirstByIdAndUserId(Long imageId, Long userId);
 
+    boolean existsByIdAndUserId(Long imageId, Long userId);
+
 }
