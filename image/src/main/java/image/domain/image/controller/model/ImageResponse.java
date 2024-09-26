@@ -18,8 +18,6 @@ public class ImageResponse {
 
     private ImageKind kind;
 
-    private Long petId;
-
-    private Long boardId;
+    private Long userId;
 
 }

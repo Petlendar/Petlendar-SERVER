@@ -18,10 +18,6 @@ public class ImageConverter {
 
     public ImageEntity toEntity(ImageRequest imageRequest) {
         ImageInfo imageInfo = new ImageInfo(imageRequest, uploadDir);
-        log.info("image Info filename: {}", imageInfo.getFileName());
-        log.info("image Info extension: {}", imageInfo.getExtension());
-        log.info("image Info imageUrl: {}", imageInfo.getImageUrl());
-        log.info("image Info uploadDir: {}", imageInfo.getUploadDir());
         return ImageEntity.builder()
             .imageUrl(imageInfo.getImageUrl())
             .originalName(imageInfo.getOriginalFileName())
@@ -37,8 +33,7 @@ public class ImageConverter {
             .id(imageEntity.getId())
             .imageUrl(imageEntity.getImageUrl())
             .kind(imageEntity.getKind())
-            .petId(imageEntity.getPetId())
-            .boardId(imageEntity.getBoardId())
+            .userId(imageEntity.getUserId())
             .build();
     }
 }

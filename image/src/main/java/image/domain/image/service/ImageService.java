@@ -50,7 +50,8 @@ public class ImageService {
 
     }
 
-    public ImageEntity saveImageDataToDB(ImageEntity imageEntity) {
+    public ImageEntity saveImageDataToDB(ImageEntity imageEntity, Long userId) {
+        imageEntity.setUserId(userId);
         return imageRepository.save(imageEntity);
     }
 

@@ -17,16 +17,12 @@ public class ImageBusiness {
     private final ImageService imageService;
     private final ImageConverter imageConverter;
 
-    public ImageResponse uploadImage(ImageRequest imageRequest) {
+    public ImageResponse uploadImage(ImageRequest imageRequest, Long userId) {
         ImageEntity imageEntity = imageConverter.toEntity(imageRequest); // 서버에 저장하는 imageEntity
 
         imageService.uploadImage(imageRequest.getFile(), imageEntity); // 서버에 파일 업로드
 
-        ImageEntity savedImageEntity = imageService.saveImageDataToDB(imageEntity);
-
-        log.info("Image Business Log : {}", savedImageEntity.getId());
-        log.info("Image Business Log : {}", savedImageEntity.getKind());
-        log.info("Image Business Log : {}", savedImageEntity.getServerName());
+        ImageEntity savedImageEntity = imageService.saveImageDataToDB(imageEntity, userId);
 
         return imageConverter.toResponse(savedImageEntity);
     }
