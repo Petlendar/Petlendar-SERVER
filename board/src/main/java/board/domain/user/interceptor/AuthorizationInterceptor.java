@@ -1,7 +1,7 @@
 package board.domain.user.interceptor;
 
-import board.common.error.UserErrorCode;
 import board.common.exception.user.UserNotFoundException;
+import global.errorcode.UserErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;

@@ -2,7 +2,7 @@ package image.domain.image.service;
 
 import db.domain.image.ImageEntity;
 import db.domain.image.ImageRepository;
-import image.common.error.ImageErrorCode;
+import global.errorcode.ImageErrorCode;
 import image.common.exception.image.ImageStorageException;
 import image.common.utils.ImageUtils;
 import java.io.IOException;

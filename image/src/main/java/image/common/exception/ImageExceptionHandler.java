@@ -1,7 +1,7 @@
 package image.common.exception;
 
 import global.api.Api;
-import image.common.error.ImageErrorCode;
+import global.errorcode.ImageErrorCode;
 import image.common.exception.image.ImageNotFoundException;
 import image.common.exception.image.ImageStorageException;
 import lombok.extern.slf4j.Slf4j;

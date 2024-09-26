@@ -1,13 +1,11 @@
 package board.domain.comment.service;
 
-import board.common.error.CommentErrorCode;
 import board.common.exception.comment.CommentNotFoundException;
-import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.update.CommentUpdateRequest;
-import db.domain.board.BoardRepository;
 import db.domain.comment.CommentEntity;
 import db.domain.comment.CommentRepository;
 import db.domain.comment.enums.CommentStatus;
+import global.errorcode.CommentErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
-package pet.common.error;
+package global.errorcode;
 
-import global.errorcode.ErrorCodeIfs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PetErrorCode implements ErrorCodeIfs {
 
-    PET_NOT_FOUND(404, 1300, "반려동물을 찾을 수 없습니다."),
-    EXISTS_PET(403, 1301, "이미 존하는 반려동물입니다."),
+    // 1200 ~ 1249
+    PET_NOT_FOUND(404, 1200, "반려동물을 찾을 수 없습니다."),
+    EXISTS_PET(403, 1201, "이미 존하는 반려동물입니다."),
     ;
 
     private final Integer httpCode;

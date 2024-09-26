@@ -1,6 +1,5 @@
-package board.common.error;
+package global.errorcode;
 
-import global.errorcode.ErrorCodeIfs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BoardErrorCode implements ErrorCodeIfs {
 
-    BOARD_NOT_FOUND(404, 1350, "게시글이 존재하지 않습니다.")
+    // 1300 ~ 1349
+    BOARD_NOT_FOUND(404, 1300, "게시글이 존재하지 않습니다.")
     ;
 
     private final Integer httpCode;

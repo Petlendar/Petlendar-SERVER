@@ -1,14 +1,13 @@
 package board.domain.board.service;
 
-import board.common.error.BoardErrorCode;
 import board.common.exception.board.BoardNotFoundException;
-import board.domain.board.controller.model.search.BoardSearchResponse;
 import board.domain.board.controller.model.update.BoardUpdateRequest;
 import db.domain.board.BoardEntity;
 import db.domain.board.BoardRepository;
 import db.domain.board.EntitySearchCondition;
 import db.domain.board.QueryBoardRepository;
 import db.domain.board.enums.BoardStatus;
+import global.errorcode.BoardErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

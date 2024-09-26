@@ -3,10 +3,10 @@ package pet.domain.image.service;
 import db.domain.image.ImageEntity;
 import db.domain.image.ImageRepository;
 import db.domain.pet.PetEntity;
+import global.errorcode.ImageErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pet.common.error.ImageErrorCode;
 import pet.common.exception.image.ImageNotFoundException;
 
 @Service
