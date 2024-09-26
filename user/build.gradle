@@ -22,6 +22,9 @@ dependencies {
     // Jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // Bcrypt
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+
     // Jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
