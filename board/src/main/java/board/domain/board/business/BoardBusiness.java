@@ -12,6 +12,7 @@ import board.domain.board.converter.BoardConverter;
 import board.domain.board.service.BoardService;
 import board.domain.comment.converter.CommentConverter;
 import board.domain.comment.service.CommentService;
+import board.domain.image.service.ImageService;
 import db.domain.board.BoardEntity;
 import db.domain.comment.CommentEntity;
 import global.annotation.Business;
@@ -24,6 +25,7 @@ public class BoardBusiness {
 
     private final BoardService boardService;
     private final CommentService commentService;
+    private final ImageService imageService;
     private final BoardConverter boardConverter;
     private final CommentConverter commentConverter;
     private final MessageConverter messageConverter;
@@ -32,6 +34,8 @@ public class BoardBusiness {
 
         BoardEntity boardEntity = boardConverter.toEntity(request);
         BoardEntity savedBoardEntity = boardService.register(boardEntity, userId);
+
+        imageService.linkImageToBoard(request.getImageIdList(), savedBoardEntity);
 
         return boardConverter.toResponse(savedBoardEntity);
     }
