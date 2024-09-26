@@ -18,8 +18,3 @@ spring:
 jwt:
   secret:
     key: petlendar_password_key_by_seob_1234567890
-  access-token:
-    plus-hour: 1
-  refresh-token:
-    plus-hour: 12
-
