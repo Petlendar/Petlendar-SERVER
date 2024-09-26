@@ -6,6 +6,8 @@ import board.domain.board.controller.model.detail.BoardDetailResponse;
 import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
+import board.domain.board.controller.model.search.BoardSearchResponse;
+import board.domain.board.controller.model.search.SearchCondition;
 import board.domain.board.controller.model.update.BoardUpdateRequest;
 import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.board.converter.BoardConverter;
@@ -16,11 +18,13 @@ import board.domain.image.controller.model.ImageResponse;
 import board.domain.image.converter.ImageConverter;
 import board.domain.image.service.ImageService;
 import db.domain.board.BoardEntity;
+import db.domain.board.EntitySearchCondition;
 import db.domain.comment.CommentEntity;
 import db.domain.image.ImageEntity;
 import global.annotation.Business;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 
 @Business
 @RequiredArgsConstructor
@@ -86,6 +90,25 @@ public class BoardBusiness {
             commentEntityList);
 
         return boardConverter.toResponse(boardEntity, imageResponseList, commentDetailList);
+    }
+
+    public List<BoardSearchResponse> getBoardSearchBy(SearchCondition condition, Pageable page) {
+
+        EntitySearchCondition entitySearchCondition = boardConverter.toEntity(condition, page);
+        List<BoardEntity> boardEntityList = boardService.getBoardSearchBy(entitySearchCondition);
+
+        return boardEntityList.stream().map(boardEntity -> {
+
+            ImageEntity firstImageEntity = getFirstImageBy(boardEntity.getId());
+            ImageResponse boardImageResponse = (firstImageEntity != null) ? imageConverter.toResponse(firstImageEntity) : null;
+
+            return boardConverter.toResponse(boardEntity, boardImageResponse);
+        }).toList();
+    }
+
+    private ImageEntity getFirstImageBy(Long boardId) {
+        List<ImageEntity> imageEntityList = imageService.getImageOrEmptyBy(boardId);
+        return imageEntityList.isEmpty() ? null : imageEntityList.get(0);  // 첫 번째 이미지, 없으면 null 반환
     }
 
 }
