@@ -1,4 +1,4 @@
-package board.common.config.web;
+package user.common.config.web;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import board.domain.user.interceptor.AuthorizationInterceptor;
-import board.domain.user.resolver.UserSessionResolver;
+import user.domain.user.interceptor.AuthorizationInterceptor;
+import user.domain.user.resolver.UserSessionResolver;
 
 @Component
 @RequiredArgsConstructor
