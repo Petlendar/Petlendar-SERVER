@@ -2,6 +2,7 @@ package db.domain.pet;
 
 import db.domain.pet.enums.PetStatus;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,7 @@ public interface PetRepository extends JpaRepository<PetEntity, Long> {
     Optional<PetEntity> findFirstByIdAndStatusOrderByIdDesc(Long petId, PetStatus status);
 
     Boolean existsByIdAndUserIdAndStatus(Long petId, Long userId, PetStatus petStatus);
+
+    List<PetEntity> findAllByUserIdAndStatusOrderByIdAsc(Long userId, PetStatus status);
+
 }

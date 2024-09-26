@@ -2,6 +2,7 @@ package pet.domain.pet.controller;
 
 import global.annotation.UserSession;
 import global.api.Api;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pet.domain.pet.business.PetBusiness;
 import pet.common.response.MessageResponse;
+import pet.domain.pet.controller.model.detail.PetListResponse;
 import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
@@ -51,6 +53,12 @@ public class PetApiController {
     @GetMapping("/{petId}")
     public Api<PetDetailResponse> getPet(@PathVariable Long petId, @UserSession User user) {
         PetDetailResponse response = petBusiness.getPetBy(petId, user.getId());
+        return Api.OK(response);
+    }
+
+    @GetMapping()
+    public Api<List<PetListResponse>> getPetList(@UserSession User user) {
+        List<PetListResponse> response = petBusiness.getPetListBy(user.getId());
         return Api.OK(response);
     }
 

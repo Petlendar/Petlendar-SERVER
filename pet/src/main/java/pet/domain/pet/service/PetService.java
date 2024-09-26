@@ -4,6 +4,7 @@ import db.domain.pet.PetEntity;
 import db.domain.pet.PetRepository;
 import db.domain.pet.enums.PetStatus;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pet.common.error.PetErrorCode;
@@ -25,6 +26,15 @@ public class PetService {
     public PetEntity getPetBy(Long petId, PetStatus status) {
         return petRepository.findFirstByIdAndStatusOrderByIdDesc(petId, status)
             .orElseThrow(() -> new PetNotFoundException(PetErrorCode.PET_NOT_FOUND));
+    }
+
+    public List<PetEntity> getPetListBy(Long userId, PetStatus status) {
+        List<PetEntity> petEntityList = petRepository.findAllByUserIdAndStatusOrderByIdAsc(
+            userId, status);
+        if (petEntityList.isEmpty()) {
+            throw new PetNotFoundException(PetErrorCode.PET_NOT_FOUND);
+        }
+        return petEntityList;
     }
 
     public void unregister(PetEntity petEntity) {
