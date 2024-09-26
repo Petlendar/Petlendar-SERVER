@@ -59,7 +59,7 @@ public class ServiceApiPrivateFilter extends
                 .build();
 
             // TokenValidationRequest 객체 생성
-            TokenValidationRequest request = new TokenValidationRequest(new TokenDto(token, null));
+            TokenValidationRequest request = new TokenValidationRequest(new TokenDto(token));
 
             return webClient.post()
                 .body(BodyInserters.fromValue(request))

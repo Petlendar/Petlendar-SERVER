@@ -31,22 +31,6 @@ public class JwtTokenHelper implements TokenHelperIfs {
     @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Value("${jwt.access-token.plus-hour}")
-    private Long accessTokenPlusHour;
-
-    @Value("${jwt.refresh-token.plus-hour}")
-    private Long refreshTokenPlusHour;
-
-    @Override
-    public TokenDto issueAccessToken(Map<String, Object> data) {
-        return getTokenDto(data, accessTokenPlusHour);
-    }
-
-    @Override
-    public TokenDto issueRefresh(Map<String, Object> data) {
-        return getTokenDto(data, refreshTokenPlusHour);
-    }
-
     @Override
     public Map<String, Object> validationTokenWithThrow(String token) {
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
@@ -66,21 +50,4 @@ public class JwtTokenHelper implements TokenHelperIfs {
         }
     }
 
-    private TokenDto getTokenDto(Map<String, Object> data, Long refreshTokenPlusHour) {
-        LocalDateTime expiredLocalDateTime = LocalDateTime.now().plusHours(refreshTokenPlusHour);
-        Date expiredAt = Date.from(expiredLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
-
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
-        String jwtToken = Jwts.builder()
-            .signWith(key, SignatureAlgorithm.HS256)
-            .setClaims(data)
-            .setExpiration(expiredAt)
-            .compact();
-
-        return TokenDto.builder()
-            .token(jwtToken)
-            .expiredAt(expiredLocalDateTime)
-            .build();
-    }
 }
