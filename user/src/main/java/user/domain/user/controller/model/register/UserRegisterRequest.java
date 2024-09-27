@@ -21,20 +21,20 @@ public class UserRegisterRequest {
 
     @Pattern(
         regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*[\\\\{}()<>$%^&*_=|`]).{8,100}$",
-        message = "비밀번호는 대문자, 소문자, 특수문자를 포함하고 8자 이상이어야 합니다."
+        message = "대문자, 소문자, 특수문자를 포함하고 8자 이상이어야 합니다."
     )
     private String password;
 
     @Pattern(
         regexp = "^[가-힣a-zA-Z0-9]{2,50}$",
-        message = "이름은 한글, 영어 또는 숫자로 2자 이상 50자 이하로 입력해주세요."
+        message = "한글, 영어 또는 숫자로 2자 이상 50자 이하로 입력해주세요."
     )
     private String name;
 
     private LocalDate birth;
 
-    @NotBlank(message = "주소는 필수 입력 사항입니다.")
-    @Size(max = 200, message = "주소는 최대 200자까지 입력 가능합니다.")
+    @NotBlank(message = "필수 입력 사항입니다.")
+    @Size(max = 200, message = "최대 200자까지 입력 가능합니다.")
     private String address;
 
     @Pattern(

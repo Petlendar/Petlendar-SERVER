@@ -9,6 +9,7 @@ import board.domain.comment.controller.model.update.CommentUpdateResponse;
 import board.domain.user.controller.model.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class CommentController {
 
     @PostMapping()
     public Api<CommentRegisterResponse> register(
-        @RequestBody Api<CommentRegisterRequest> registerRequest,
+        @RequestBody @Valid Api<CommentRegisterRequest> registerRequest,
         @UserSession User user
     ) {
         CommentRegisterResponse response = commentBusiness.register(registerRequest.getBody(), user.getId());
@@ -43,7 +44,7 @@ public class CommentController {
 
     @PostMapping("/update")
     public Api<CommentUpdateResponse> update(
-        @RequestBody Api<CommentUpdateRequest> updateRequest,
+        @RequestBody @Valid Api<CommentUpdateRequest> updateRequest,
         @UserSession User user)
     {
         CommentUpdateResponse response = commentBusiness.update(updateRequest.getBody(), user.getId());

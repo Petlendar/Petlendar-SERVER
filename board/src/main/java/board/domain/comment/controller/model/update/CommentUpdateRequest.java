@@ -1,5 +1,8 @@
 package board.domain.comment.controller.model.update;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentUpdateRequest {
 
+    @NotNull(message = "필수 입력 항목입니다.")
     private Long commentId;
 
+    @NotBlank(message = " 필수 입력 항목입니다.")
+    @Size(min = 2, max = 100, message = "최소 2자, 최대 100자까지 입력 가능합니다.")
     private String content;
 
 }
