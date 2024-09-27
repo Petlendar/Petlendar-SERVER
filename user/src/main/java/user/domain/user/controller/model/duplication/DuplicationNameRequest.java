@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class DuplicationNameRequest {
 
     @Pattern(
-        regexp = "^[가-힣]{1,50}$",
-        message = "이름은 한글 1자 이상 50자 이하로 입력해주세요."
+        regexp = "^[가-힣a-zA-Z0-9]{2,50}$",
+        message = "이름은 한글, 영어 또는 숫자로 2자 이상 50자 이하로 입력해주세요."
     )
     private String name;
 
