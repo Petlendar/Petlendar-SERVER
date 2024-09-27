@@ -5,6 +5,7 @@ import board.domain.board.controller.model.detail.BoardDetailResponse;
 import board.domain.board.controller.model.search.BoardSearchResponse;
 import board.domain.board.controller.model.search.SearchCondition;
 import global.api.Api;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class BoardOpenApiController {
 
     @GetMapping()
     public Api<List<BoardSearchResponse>> getBoardSearchBy(
-        @ModelAttribute SearchCondition condition,
+        @ModelAttribute @Valid SearchCondition condition,
         @PageableDefault(sort = "registeredAt", direction = Sort.Direction.DESC) Pageable page // default size = 10
     ) {
         List<BoardSearchResponse> response = boardBusiness.getBoardSearchBy(condition, page);

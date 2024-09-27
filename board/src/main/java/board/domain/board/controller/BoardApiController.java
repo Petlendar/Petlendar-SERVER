@@ -12,6 +12,7 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.user.controller.model.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class BoardApiController {
 
     @PostMapping()
     public Api<BoardRegisterResponse> register(
-        @RequestBody Api<BoardRegisterRequest> request,
+        @RequestBody @Valid Api<BoardRegisterRequest> request,
         @UserSession User user
     ) {
         BoardRegisterResponse response = boardBusiness.register(request.getBody(), user.getId());
@@ -51,7 +52,7 @@ public class BoardApiController {
 
     @PostMapping("/update")
     public Api<BoardUpdateResponse> update(
-        @RequestBody Api<BoardUpdateRequest> updateRequest,
+        @RequestBody @Valid Api<BoardUpdateRequest> updateRequest,
         @UserSession User user) {
         BoardUpdateResponse response = boardBusiness.update(updateRequest.getBody(), user.getId());
         return Api.OK(response);

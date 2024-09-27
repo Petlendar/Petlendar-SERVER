@@ -16,13 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ValidationExceptionHandler {
 
-    @ExceptionHandler(value = ValidationException.class)
-    public ResponseEntity<Api<Object>> validateException(ValidationException e) {
-        log.info("", e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(Api.ERROR(ErrorCode.INVALID_INPUT_DATA,e.getMessage()));
-    }
-
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<Api<Object>> methodArgumentNotValidException(
         MethodArgumentNotValidException e) {

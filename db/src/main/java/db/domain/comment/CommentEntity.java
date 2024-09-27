@@ -2,6 +2,7 @@ package db.domain.comment;
 
 import db.common.BaseEntity;
 import db.domain.comment.enums.CommentStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "comment")
 public class CommentEntity extends BaseEntity {
 
+    @Column(nullable = false, length = 100)
     private String content;
 
     @Enumerated(EnumType.STRING)
@@ -33,8 +35,10 @@ public class CommentEntity extends BaseEntity {
 
     private LocalDateTime modifiedAt;
 
+    @Column(nullable = false)
     private Long boardId;
 
+    @Column(nullable = false)
     private Long userId;
 
 }

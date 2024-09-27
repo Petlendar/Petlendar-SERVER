@@ -1,4 +1,4 @@
-package pet.common.exception;
+package board.common.exception;
 
 import global.api.Api;
 import global.errorcode.ErrorCode;
