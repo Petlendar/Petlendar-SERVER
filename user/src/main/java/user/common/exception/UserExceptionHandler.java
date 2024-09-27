@@ -1,12 +1,12 @@
 package user.common.exception;
 
 import global.api.Api;
+import global.errorcode.UserErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import user.common.error.UserErrorCode;
 import user.common.exception.user.ExistUserEmailException;
 import user.common.exception.user.ExistUserNameException;
 import user.common.exception.user.LoginFailException;

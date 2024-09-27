@@ -1,5 +1,6 @@
 package user.domain.jwt.helper;
 
+import global.errorcode.TokenErrorCode;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -17,7 +18,6 @@ import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import user.common.error.TokenErrorCode;
 import user.common.exception.jwt.TokenException;
 import user.common.exception.jwt.TokenExpiredException;
 import user.common.exception.jwt.TokenSignatureException;

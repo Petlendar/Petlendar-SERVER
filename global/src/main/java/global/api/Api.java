@@ -1,6 +1,7 @@
 package global.api;
 
 import global.errorcode.ErrorCodeIfs;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class Api<T>{
 
     private Result result;
+
+    @Valid
     private T body;
 
     public static <T> Api<T> OK(T object) {
