@@ -2,6 +2,7 @@ package pet.domain.pet.controller;
 
 import global.annotation.UserSession;
 import global.api.Api;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class PetApiController {
 
     @PostMapping()
     public Api<PetRegisterResponse> register(
-        @RequestBody Api<PetRegisterRequest> registerRequest,
+        @RequestBody @Valid Api<PetRegisterRequest> registerRequest,
         @UserSession User user
     ) {
         PetRegisterResponse response = petBusiness.register(registerRequest.getBody(), user.getId());
@@ -43,7 +44,7 @@ public class PetApiController {
 
     @PostMapping("/update")
     public Api<MessageResponse> update(
-        @RequestBody Api<PetUpdateRequest> petUpdateRequest,
+        @RequestBody  @Valid Api<PetUpdateRequest> petUpdateRequest,
         @UserSession User user
     ) {
         MessageResponse response = petBusiness.update(petUpdateRequest.getBody(), user.getId());

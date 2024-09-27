@@ -3,6 +3,7 @@ package db.domain.pet;
 import db.common.BaseEntity;
 import db.domain.pet.enums.PetCategory;
 import db.domain.pet.enums.PetStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -24,15 +25,18 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "pet")
 public class PetEntity extends BaseEntity {
 
+    @Column(nullable = false, length = 50)
     private String name;
 
     private LocalDate birth;
 
+    @Column(nullable = false, length = 50)
     private String address;
 
     @Enumerated(EnumType.STRING)
     private PetCategory category;
 
+    @Column(nullable = false)
     private float weight;
 
     @Enumerated(EnumType.STRING)
@@ -42,6 +46,7 @@ public class PetEntity extends BaseEntity {
 
     private LocalDateTime unregisteredAt;
 
+    @Column(nullable = false)
     private Long userId;
 
 }
