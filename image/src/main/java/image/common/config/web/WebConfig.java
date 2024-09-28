@@ -1,7 +1,7 @@
 package image.common.config.web;
 
-import image.domain.user.interceptor.AuthorizationInterceptor;
-import image.domain.user.resolver.UserSessionResolver;
+import image.common.interceptor.AuthorizationInterceptor;
+import image.common.resolver.UserSessionResolver;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

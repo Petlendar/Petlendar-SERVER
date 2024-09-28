@@ -1,8 +1,7 @@
-package image.domain.user.resolver;
+package user.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import global.annotation.UserSession;
-import image.domain.user.controller.model.User;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,12 +13,12 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import user.domain.user.controller.model.User;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class UserSessionResolver implements HandlerMethodArgumentResolver {
-
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {

@@ -10,8 +10,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import pet.domain.user.interceptor.AuthorizationInterceptor;
-import pet.domain.user.resolver.UserSessionResolver;
+import pet.common.interceptor.AuthorizationInterceptor;
+import pet.common.resolver.UserSessionResolver;
 
 @Component
 @RequiredArgsConstructor

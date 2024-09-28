@@ -1,4 +1,4 @@
-package board.domain.user.resolver;
+package board.common.resolver;
 
 import board.domain.user.controller.model.User;
 import db.domain.user.enums.UserRole;
