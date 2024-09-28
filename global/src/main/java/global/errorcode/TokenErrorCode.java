@@ -19,6 +19,6 @@ public enum TokenErrorCode implements ErrorCodeIfs {
 
     private final Integer httpCode;
     private final Integer errorCode;
-    private final String description;
+    private final String description; 
 
 }

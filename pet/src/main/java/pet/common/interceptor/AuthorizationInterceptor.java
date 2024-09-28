@@ -1,7 +1,6 @@
-package image.domain.user.interceptor;
+package pet.common.interceptor;
 
 import global.errorcode.UserErrorCode;
-import image.common.exception.user.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
@@ -12,6 +11,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
+import pet.common.exception.user.UserNotFoundException;
 
 @Component
 @Slf4j

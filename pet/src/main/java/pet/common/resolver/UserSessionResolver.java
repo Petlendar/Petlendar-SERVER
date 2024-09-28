@@ -1,4 +1,4 @@
-package user.domain.user.resolver;
+package pet.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import global.annotation.UserSession;
@@ -13,12 +13,13 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import user.domain.user.controller.model.User;
+import pet.domain.user.controller.model.User;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class UserSessionResolver implements HandlerMethodArgumentResolver {
+
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
