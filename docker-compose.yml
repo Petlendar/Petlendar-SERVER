@@ -127,7 +127,9 @@ services:
     volumes:
       - image_data:/home/Desktop/Petlendar-SERVER/image/src/main/resources/static/images
 
-
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  image_data:
