@@ -46,7 +46,7 @@ public class ServiceApiPrivateFilter extends
 
             // 2. 토큰 유효성
             String userApiUri = UriComponentsBuilder
-                .fromUriString("http://localhost") // URL 수정
+                .fromUriString("http://account") // URL 수정
                 .port(8081)
                 .path("/api/account") // 경로 추가
                 .build()

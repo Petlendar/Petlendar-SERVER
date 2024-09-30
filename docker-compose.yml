@@ -1,4 +1,16 @@
 services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: petlendar
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
   db:
     build:
       context: .
@@ -6,6 +18,8 @@ services:
     image: svj7531/petlendar-db
     networks:
       - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   global:
     build:
@@ -40,13 +54,14 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
-      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - TZ=Asia/Seoul
     depends_on:
       - db
       - global
+      - postgres
 
   user:
     build:
@@ -58,13 +73,14 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
-      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - TZ=Asia/Seoul
     depends_on:
       - db
       - global
+      - postgres
 
   pet:
     build:
@@ -76,13 +92,14 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
-      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - TZ=Asia/Seoul
     depends_on:
       - db
       - global
+      - postgres
 
   board:
     build:
@@ -94,13 +111,14 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
-      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - TZ=Asia/Seoul
     depends_on:
       - db
       - global
+      - postgres
 
   image:
     build:
@@ -112,15 +130,26 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
-      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - TZ=Asia/Seoul
     depends_on:
       - db
       - global
+      - postgres
     volumes:
       - image_data:/home/Desktop/Petlendar-SERVER/image/src/main/resources/static/images
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
 
 networks:
   app-network:
@@ -128,3 +157,4 @@ networks:
 
 volumes:
   image_data:
+  postgres_data:

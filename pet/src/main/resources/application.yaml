@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/petlendar
+    url: jdbc:postgresql://postgres:5432/petlendar
     username: postgres
     password: 1234
   jpa:

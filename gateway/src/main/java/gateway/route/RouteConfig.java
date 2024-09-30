@@ -34,7 +34,7 @@ public class RouteConfig {
                     .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/user(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8082") // 라우팅할 주소
+                .uri("http://user:8082")
             )
             .route(spec -> spec.order(-1) // 우선순위
                 .path("/user/open-api/**") // 매칭할 주소
@@ -42,7 +42,7 @@ public class RouteConfig {
                     .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
                     .rewritePath("/user(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8082") // 라우팅할 주소
+                .uri("http://user:8082")
             )
 
             // -------------------- Pet Module --------------------
@@ -52,7 +52,7 @@ public class RouteConfig {
                     .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/pet(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8083")
+                .uri("http://pet:8083")
             )
             .route(spec -> spec.order(-1)
                 .path("/pet/open-api/**")
@@ -60,7 +60,7 @@ public class RouteConfig {
                     .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
                     .rewritePath("/pet(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8083")
+                .uri("http://pet:8083")
             )
 
             // -------------------- Board Module --------------------
@@ -70,7 +70,7 @@ public class RouteConfig {
                     .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/board(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8084")
+                .uri("http://board:8084")
             )
             .route(spec -> spec.order(-1)
                 .path("/board/open-api/**")
@@ -78,7 +78,7 @@ public class RouteConfig {
                     .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
                     .rewritePath("/board(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8084")
+                .uri("http://board:8084")
             )
 
             // -------------------- Image Module --------------------
@@ -88,7 +88,7 @@ public class RouteConfig {
                     .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
                     .rewritePath("/image(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8085")
+                .uri("http://image:8085")
             )
             .route(spec -> spec.order(-1)
                 .path("/image/open-api/**")
@@ -96,7 +96,7 @@ public class RouteConfig {
                     .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
                     .rewritePath("/image(?<segment>/?.*)", "${segment}")
                 )
-                .uri("http://localhost:8085")
+                .uri("http://image:8085")
             )
             .build();
 
