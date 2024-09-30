@@ -1,3 +1,3 @@
 FROM openjdk:17-jdk-slim
-ADD /db/build/libs/*.jar db.jar
+ADD /board/build/libs/*.jar board.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/board.jar"]
