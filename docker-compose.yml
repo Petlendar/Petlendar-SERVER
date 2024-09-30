@@ -1,0 +1,135 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
+    image: svj7531/petlendar-db
+    ports:
+      - "5432:5432"
+    environment:
+      MYSQL_DATABASE: petlendar
+      MYSQL_USER: petlendar
+      MYSQL_PASSWORD: petlendar1234@
+    networks:
+      - app-network
+
+  global:
+    build:
+      context: .
+      dockerfile: ./global/Dockerfile
+    image: svj7531/petlendar-global
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile
+    image: svj7531/petlendar-gateway
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+    environment:
+      - TZ=Asia/Seoul
+
+  account:
+    build:
+      context: .
+      dockerfile: ./account/Dockerfile
+    image: svj7531/petlendar-account
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_PASSWORD=petlendar1234@
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+
+  user:
+    build:
+      context: .
+      dockerfile: ./user/Dockerfile
+    image: svj7531/petlendar-user
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_PASSWORD=petlendar1234@
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+
+  pet:
+    build:
+      context: .
+      dockerfile: ./pet/Dockerfile
+    image: svj7531/petlendar-pet
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_PASSWORD=petlendar1234@
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+
+  board:
+    build:
+      context: .
+      dockerfile: ./board/Dockerfile
+    image: svj7531/petlendar-board
+    ports:
+      - "8084:8084"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_PASSWORD=petlendar1234@
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+
+  image:
+    build:
+      context: .
+      dockerfile: ./image/Dockerfile
+    image: svj7531/petlendar-image
+    ports:
+      - "8085:8085"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=petlendar
+      - SPRING_DATASOURCE_PASSWORD=petlendar1234@
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+    volumes:
+      - image_data:/home/Desktop/Petlendar-SERVER/image/src/main/resources/static/images
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  image_data:
