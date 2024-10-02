@@ -16,5 +16,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 file:
-  upload-dir: /Users/seob/Desktop/Petlendar-SERVER/image/src/main/resources/static/images/
+  upload-dir: /app/images/
   path: /images/
+  base-address: 114.70.216.57

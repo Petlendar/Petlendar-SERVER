@@ -16,8 +16,11 @@ public class ImageConverter {
     @Value("${file.path}")
     private String uploadDir;
 
+    @Value("${file.base-address}")
+    private String baseAddress;
+
     public ImageEntity toEntity(ImageRequest imageRequest) {
-        ImageInfo imageInfo = new ImageInfo(imageRequest, uploadDir);
+        ImageInfo imageInfo = new ImageInfo(imageRequest, uploadDir, baseAddress);
         return ImageEntity.builder()
             .imageUrl(imageInfo.getImageUrl())
             .originalName(imageInfo.getOriginalFileName())

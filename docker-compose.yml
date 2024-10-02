@@ -139,7 +139,7 @@ services:
       - global
       - postgres
     volumes:
-      - image_data:/home/Desktop/Petlendar-SERVER/image/src/main/resources/static/images
+      - C:/Users/USER/Desktop/Petlendar-SERVER/image/src/main/resources/static/images:/app/images
 
   nginx:
     image: nginx:latest
@@ -148,6 +148,8 @@ services:
       - "80:80"
     networks:
       - app-network
+    depends_on:
+      - gateway
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
 

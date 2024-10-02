@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Slf4j
 public class ImageInfo {
 
     private String uploadDir;
@@ -23,16 +26,18 @@ public class ImageInfo {
     private String fileName;
     private String imageUrl;
 
-    public ImageInfo(ImageRequest request, String uploadDir) {
+    public ImageInfo(ImageRequest request, String uploadDir, String baseAddress) {
         this.uploadDir = uploadDir;
         this.originalFileName = request.getFile().getOriginalFilename();
         this.serverName = UUID.randomUUID().toString();
         this.extension = ImageUtils.subStringExtension(
             Objects.requireNonNull(this.originalFileName));
         this.fileName = StringUtils.cleanPath(this.serverName + this.extension);
-        this.imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-            .scheme("http")
-            .path(uploadDir + fileName)
+
+        log.info("baseAddress : {}", baseAddress);
+        this.imageUrl = ServletUriComponentsBuilder.fromHttpUrl("http://" + baseAddress)
+            .port(80)
+            .path("/images/" + fileName)
             .toUriString();
     }
 
