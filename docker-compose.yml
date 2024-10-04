@@ -8,8 +8,10 @@ services:
       POSTGRES_DB: petlendar
     ports:
       - "5432:5432"
-    networks:
+    networks: 
       - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   db:
     build:
@@ -18,8 +20,6 @@ services:
     image: svj7531/petlendar-db
     networks:
       - app-network
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
   global:
     build:
