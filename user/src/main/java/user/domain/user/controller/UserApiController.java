@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import user.common.response.MessageResponse;
 import user.domain.user.business.UserBusiness;
-import user.domain.user.controller.model.User;
+import user.common.resolver.User;
 import user.domain.user.controller.model.login.UserResponse;
 
 @RestController

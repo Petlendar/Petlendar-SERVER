@@ -1,4 +1,4 @@
-package ai.domain.user.controller.model;
+package hospital.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;

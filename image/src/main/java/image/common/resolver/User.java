@@ -1,4 +1,4 @@
-package pet.domain.user.controller.model;
+package image.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;

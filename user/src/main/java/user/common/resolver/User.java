@@ -1,4 +1,4 @@
-package hospital.domain.user.controller.model;
+package user.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;
