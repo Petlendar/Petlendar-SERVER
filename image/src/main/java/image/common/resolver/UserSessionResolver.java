@@ -2,7 +2,6 @@ package image.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import global.annotation.UserSession;
-import image.domain.user.controller.model.User;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

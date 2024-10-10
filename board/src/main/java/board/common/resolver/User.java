@@ -1,4 +1,4 @@
-package board.domain.user.controller.model;
+package board.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;
