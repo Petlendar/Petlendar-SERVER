@@ -11,6 +11,6 @@ public enum PetCategory {
     CAT("고양이")
     ;
 
-    private String description;
+    private final String description;
 
 }

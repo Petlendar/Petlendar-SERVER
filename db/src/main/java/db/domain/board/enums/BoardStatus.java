@@ -12,6 +12,6 @@ public enum BoardStatus {
     MODIFIED("수정")
     ;
 
-    private String description;
+    private final String description;
 
 }
