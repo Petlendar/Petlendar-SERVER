@@ -1,6 +1,7 @@
 package db.domain.hospital;
 
 import db.common.BaseEntity;
+import db.domain.hospital.enums.HospitalStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -27,8 +28,10 @@ public class HospitalEntity extends BaseEntity {
 
     private String phone;
 
+    private HospitalStatus status;
+
     private LocalDateTime registeredAt;
 
-    private String userId;
+    private Long userId;
 
 }
