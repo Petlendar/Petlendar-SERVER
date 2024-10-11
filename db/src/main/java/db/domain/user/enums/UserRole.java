@@ -12,6 +12,6 @@ public enum UserRole {
     HOSPITAL("병원")
     ;
 
-    private String description;
+    private final String description;
 
 }

@@ -11,6 +11,6 @@ public enum PetStatus {
     UNREGISTERED("삭제")
     ;
 
-    private String description;
+    private final String description;
 
 }
