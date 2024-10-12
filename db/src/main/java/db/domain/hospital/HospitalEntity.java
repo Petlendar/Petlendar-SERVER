@@ -32,6 +32,8 @@ public class HospitalEntity extends BaseEntity {
 
     private LocalDateTime registeredAt;
 
+    private LocalDateTime unregisteredAt;
+
     private Long userId;
 
 }
