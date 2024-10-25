@@ -19,8 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -37,7 +35,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        httpSecurity.cors(cors -> cors.disable())
             .addFilterBefore(new JwtAuthFilter(tokenService, authorizationService),
                 UsernamePasswordAuthenticationFilter.class)
             .csrf((csrfConfig) -> csrfConfig.disable())
@@ -54,23 +52,9 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-//    @Bean
+    //    @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    // 모든 도메인에 대해 CORS 허용
-    @Bean
-    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOriginPattern("*"); // 모든 도메인 허용
-        corsConfiguration.addAllowedMethod("*"); // 모든 HTTP 메서드 허용 (GET, POST 등)
-        corsConfiguration.addAllowedHeader("*"); // 모든 헤더 허용
-        corsConfiguration.setAllowCredentials(true); // 자격증명 허용 (쿠키, 인증 정보)
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
     }
 
     @Bean
