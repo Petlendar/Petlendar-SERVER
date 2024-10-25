@@ -18,7 +18,7 @@ import pet.domain.pet.controller.model.detail.PetDetailResponse;
 import pet.domain.pet.controller.model.register.PetRegisterRequest;
 import pet.domain.pet.controller.model.register.PetRegisterResponse;
 import pet.domain.pet.controller.model.update.PetUpdateRequest;
-import pet.domain.user.controller.model.User;
+import pet.common.resolver.User;
 
 @RestController
 @RequiredArgsConstructor

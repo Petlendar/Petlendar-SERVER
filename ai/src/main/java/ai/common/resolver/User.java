@@ -1,4 +1,4 @@
-package image.domain.user.controller.model;
+package ai.common.resolver;
 
 import db.domain.user.enums.UserRole;
 import lombok.AllArgsConstructor;

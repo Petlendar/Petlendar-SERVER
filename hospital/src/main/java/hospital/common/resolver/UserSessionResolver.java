@@ -13,7 +13,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import hospital.domain.user.controller.model.User;
 
 @Component
 @RequiredArgsConstructor

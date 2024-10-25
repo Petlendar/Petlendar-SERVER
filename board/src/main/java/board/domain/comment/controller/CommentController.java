@@ -6,7 +6,7 @@ import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
 import board.domain.comment.controller.model.update.CommentUpdateRequest;
 import board.domain.comment.controller.model.update.CommentUpdateResponse;
-import board.domain.user.controller.model.User;
+import board.common.resolver.User;
 import global.annotation.UserSession;
 import global.api.Api;
 import jakarta.validation.Valid;

@@ -12,6 +12,6 @@ public enum UserStatus {
     DORMANT("휴면")
     ;
 
-    private String description;
+    private final String description;
 
 }

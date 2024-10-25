@@ -5,7 +5,7 @@ import global.api.Api;
 import image.domain.image.business.ImageBusiness;
 import image.domain.image.controller.model.ImageRequest;
 import image.domain.image.controller.model.ImageResponse;
-import image.domain.user.controller.model.User;
+import image.common.resolver.User;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

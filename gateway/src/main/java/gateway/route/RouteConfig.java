@@ -22,6 +22,7 @@ public class RouteConfig {
      * Pet Module Port : 8083
      * Board Module Port : 8084
      * Image Module Port : 8085
+     * Hospital Module Port : 8086
      */
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
@@ -97,6 +98,24 @@ public class RouteConfig {
                     .rewritePath("/image(?<segment>/?.*)", "${segment}")
                 )
                 .uri("http://image:8085")
+            )
+
+            // -------------------- Hospital Module --------------------
+            .route(spec -> spec.order(-1)
+                .path("/hospital/api/**")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
+                    .rewritePath("/hospital(?<segment>/?.*)", "${segment}")
+                )
+                .uri("http://localhost:8086")
+            )
+            .route(spec -> spec.order(-1)
+                .path("/hospital/open-api/**")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/hospital(?<segment>/?.*)", "${segment}")
+                )
+                .uri("http://localhost:8086")
             )
             .build();
 
