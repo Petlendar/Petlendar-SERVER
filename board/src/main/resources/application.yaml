@@ -14,3 +14,11 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs # Gateway 에서 접근할 수 있도록 통일된 경로 설정
+  enable-spring-security: true
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json

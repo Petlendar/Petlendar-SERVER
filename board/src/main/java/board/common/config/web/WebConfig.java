@@ -1,5 +1,7 @@
 package board.common.config.web;
 
+import board.common.interceptor.AuthorizationInterceptor;
+import board.common.resolver.UserSessionResolver;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,8 +12,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import board.common.interceptor.AuthorizationInterceptor;
-import board.common.resolver.UserSessionResolver;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final List<String> METHODS = List.of("GET", "OPTIONS", "POST");
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(URL);
         configuration.setAllowedMethods(METHODS);
@@ -41,7 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
-            .addPathPatterns("/**")
+            .addPathPatterns("/api/**")
             .excludePathPatterns("/open-api/**")
             .excludePathPatterns("/swagger-ui/**", "/v3/api-docs/**");
     }

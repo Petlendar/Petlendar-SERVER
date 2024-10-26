@@ -45,6 +45,13 @@ public class RouteConfig {
                 )
                 .uri("http://user:8082")
             )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/user/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/user/v3/api-docs", "/v3/api-docs"))
+//                .uri("http://user:8082"))
+                .uri("http://localhost:8082"))
 
             // -------------------- Pet Module --------------------
             .route(spec -> spec.order(-1)
@@ -63,6 +70,13 @@ public class RouteConfig {
                 )
                 .uri("http://pet:8083")
             )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/pet/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/pet/v3/api-docs", "/v3/api-docs"))
+//                .uri("http://pet:8083"))
+                .uri("http://localhost:8083"))
 
             // -------------------- Board Module --------------------
             .route(spec -> spec.order(-1)
@@ -81,6 +95,13 @@ public class RouteConfig {
                 )
                 .uri("http://board:8084")
             )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/board/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/board/v3/api-docs", "/v3/api-docs"))
+//                .uri("http://board:8084"))
+                .uri("http://localhost:8084"))
 
             // -------------------- Image Module --------------------
             .route(spec -> spec.order(-1)
@@ -99,6 +120,13 @@ public class RouteConfig {
                 )
                 .uri("http://image:8085")
             )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/image/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/image/v3/api-docs", "/v3/api-docs"))
+//                .uri("http://image:8085"))
+                .uri("http://localhost:8085"))
 
             // -------------------- Hospital Module --------------------
             .route(spec -> spec.order(-1)
@@ -117,6 +145,14 @@ public class RouteConfig {
                 )
                 .uri("http://localhost:8086")
             )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/hospital/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/hospital/v3/api-docs", "/v3/api-docs"))
+//                .uri("http://hospital:8086"))
+                .uri("http://localhost:8086"))
+
             .build();
 
     }
