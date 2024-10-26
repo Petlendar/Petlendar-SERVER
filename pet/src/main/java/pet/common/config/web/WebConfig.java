@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final List<String> METHODS = List.of("GET", "OPTIONS", "POST");
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(URL);
         configuration.setAllowedMethods(METHODS);
@@ -41,7 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
-            .addPathPatterns("/**")
+            .addPathPatterns("/api/**")
             .excludePathPatterns("/open-api/**")
             .excludePathPatterns("/swagger-ui/**", "/v3/api-docs/**");
     }

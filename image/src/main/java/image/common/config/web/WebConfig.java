@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
     private String uploadDir;
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(URL);
         configuration.setAllowedMethods(METHODS);
@@ -46,7 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
-            .addPathPatterns("/**")
+            .addPathPatterns("/api/**")
             .excludePathPatterns("/images/**") // "/images/**" 경로는 제외
             .excludePathPatterns("/swagger-ui/**", "/v3/api-docs/**");
     }
