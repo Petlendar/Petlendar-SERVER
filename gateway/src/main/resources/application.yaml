@@ -15,5 +15,39 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
+            allowedHeaders:
+              - "*"
   main:
     web-application-type: reactive
+
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: "USER API DOCS"
+#        url: "http://114.70.216.57/open-api/user/v3/api-docs"
+        url: "http://localhost:9090/open-api/user/v3/api-docs"
+      - name: "PET API DOCS"
+#        url: "http://114.70.216.57/open-api/pet/v3/api-docs"
+        url: "http://localhost:9090/open-api/pet/v3/api-docs"
+      - name: "BOARD API DOCS"
+#        url: "http://114.70.216.57/open-api/board/v3/api-docs"
+        url: "http://localhost:9090/open-api/board/v3/api-docs"
+      - name: "IMAGE API DOCS"
+#        url: "http://114.70.216.57/open-api/image/v3/api-docs"
+        url: "http://localhost:9090/open-api/image/v3/api-docs"
+      - name: "HOSPITAL API DOCS"
+#        url: "http://114.70.216.57/open-api/hospital/v3/api-docs"
+        url: "http://localhost:9090/open-api/hospital/v3/api-docs"
+
+    use-root-path: true # 기본 Swagger 경로 설정
