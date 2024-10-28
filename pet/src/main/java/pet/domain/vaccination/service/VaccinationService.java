@@ -2,9 +2,11 @@ package pet.domain.vaccination.service;
 
 import db.domain.vaccination.VaccinationEntity;
 import db.domain.vaccination.VaccinationRepository;
+import global.errorcode.VaccinationRecordErrorCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pet.common.exception.vaccination.ExistsVaccinationRecordException;
 import pet.domain.vaccination.controller.model.VaccinationRequest;
 
 @Service
@@ -18,7 +20,7 @@ public class VaccinationService {
         Boolean existsByVaccinationRecord = vaccinationRepository.existsByTypeAndDateAndUserIdAndPetId(
             request.getType(), request.getDate(), userId, request.getPetId());
         if (existsByVaccinationRecord) {
-            throw new RuntimeException("이미 등록된 예방 접종 기록입니다."); //TODO 예외 처리
+            throw new ExistsVaccinationRecordException(VaccinationRecordErrorCode.EXISTS_VACCINATION_RECORD);
         }
 
     }
@@ -26,7 +28,7 @@ public class VaccinationService {
     public void notExistsByVaccinationRecordWithThrow(Long petId) {
         Boolean existsByVaccinationRecord = vaccinationRepository.existsByPetId(petId);
         if (!existsByVaccinationRecord) {
-            throw new RuntimeException("접종기록이 존재하지 않습니다."); //TODO 예외 처리
+            throw new ExistsVaccinationRecordException(VaccinationRecordErrorCode.VACCINATION_RECORD_NOT_FOUND);
         }
     }
 
