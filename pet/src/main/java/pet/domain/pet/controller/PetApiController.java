@@ -2,6 +2,7 @@ package pet.domain.pet.controller;
 
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -29,6 +30,7 @@ public class PetApiController {
     private final PetBusiness petBusiness;
 
     @PostMapping()
+    @Operation(summary = "[반려동물 등록]")
     public Api<PetRegisterResponse> register(
         @RequestBody @Valid Api<PetRegisterRequest> registerRequest,
         @Parameter(hidden = true) @UserSession User user
@@ -38,6 +40,7 @@ public class PetApiController {
     }
 
     @PostMapping("/unregister/{petId}")
+    @Operation(summary = "[반려동물 삭제]")
     public Api<MessageResponse> unregister(
         @PathVariable Long petId,
         @Parameter(hidden = true) @UserSession User user
@@ -47,6 +50,7 @@ public class PetApiController {
     }
 
     @PostMapping("/update")
+    @Operation(summary = "[반려동물 수정]")
     public Api<MessageResponse> update(
         @RequestBody  @Valid Api<PetUpdateRequest> petUpdateRequest,
         @Parameter(hidden = true) @UserSession User user
@@ -56,6 +60,7 @@ public class PetApiController {
     }
 
     @GetMapping("/{petId}")
+    @Operation(summary = "[반려동물 단일 조회]")
     public Api<PetDetailResponse> getPet(
         @PathVariable Long petId,
         @Parameter(hidden = true) @UserSession User user
@@ -65,6 +70,7 @@ public class PetApiController {
     }
 
     @GetMapping()
+    @Operation(summary = "[반려동물 목록 조회]")
     public Api<List<PetListResponse>> getPetList(@Parameter(hidden = true) @UserSession User user) {
         List<PetListResponse> response = petBusiness.getPetListBy(user.getId());
         return Api.OK(response);

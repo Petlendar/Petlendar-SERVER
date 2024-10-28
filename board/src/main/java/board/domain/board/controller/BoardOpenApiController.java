@@ -5,6 +5,7 @@ import board.domain.board.controller.model.detail.BoardDetailResponse;
 import board.domain.board.controller.model.search.BoardSearchResponse;
 import board.domain.board.controller.model.search.SearchCondition;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class BoardOpenApiController {
     private final BoardBusiness boardBusiness;
 
     @GetMapping()
+    @Operation(summary = "[게시글 목록 조화/검색]")
     public Api<List<BoardSearchResponse>> getBoardSearchBy(
         @ModelAttribute @Valid SearchCondition condition,
         @PageableDefault(sort = "registeredAt", direction = Sort.Direction.DESC) Pageable page // default size = 10
@@ -34,6 +36,7 @@ public class BoardOpenApiController {
     }
 
     @GetMapping("/{boardId}")
+    @Operation(summary = "[게시글 상세 조회 + 댓글 리스트]")
     public Api<BoardDetailResponse> getBoardDetail(@PathVariable Long boardId) {
         BoardDetailResponse response = boardBusiness.getBoardDetailBy(boardId);
         return Api.OK(response);

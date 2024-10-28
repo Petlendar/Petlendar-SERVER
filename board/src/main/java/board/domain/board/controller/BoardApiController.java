@@ -9,6 +9,7 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.common.resolver.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class BoardApiController {
     private final BoardBusiness boardBusiness;
 
     @PostMapping()
+    @Operation(summary = "[게시글 등록]")
     public Api<BoardRegisterResponse> register(
         @RequestBody @Valid Api<BoardRegisterRequest> request,
         @Parameter(hidden = true) @UserSession User user
@@ -35,6 +37,7 @@ public class BoardApiController {
     }
 
     @PostMapping("/unregister/{boardId}")
+    @Operation(summary = "[게시글 삭제]")
     public Api<MessageResponse> unregister(
         @PathVariable Long boardId,
         @Parameter(hidden = true) @UserSession User user) {
@@ -43,6 +46,7 @@ public class BoardApiController {
     }
 
     @PostMapping("/update")
+    @Operation(summary = "[게시글 수정]")
     public Api<BoardUpdateResponse> update(
         @RequestBody @Valid Api<BoardUpdateRequest> updateRequest,
         @Parameter(hidden = true) @UserSession User user) {

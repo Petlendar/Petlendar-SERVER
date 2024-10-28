@@ -2,6 +2,7 @@ package pet.domain.vaccination.controller;
 
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -26,6 +27,7 @@ public class VaccinationApiController {
     private final VaccinationBusiness vaccinationBusiness;
 
     @PostMapping()
+    @Operation(summary = "[예방접종 기록 등록]")
     public Api<VaccinationResponse> register(
         @RequestBody @Valid Api<VaccinationRequest> registerRequest,
         @Parameter(hidden = true) @UserSession User user
@@ -36,6 +38,7 @@ public class VaccinationApiController {
     }
 
     @GetMapping("/{petId}")
+    @Operation(summary = "[예방접종 기록 목록 상세 조회]")
     public Api<List<VaccinationDetailResponse>> getVaccinationRecordList(
         @PathVariable Long petId,
         @Parameter(hidden = true) @UserSession User user

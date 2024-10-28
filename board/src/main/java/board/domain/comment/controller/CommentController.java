@@ -9,6 +9,7 @@ import board.domain.comment.controller.model.update.CommentUpdateResponse;
 import board.common.resolver.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class CommentController {
     private final CommentBusiness commentBusiness;
 
     @PostMapping()
+    @Operation(summary = "[댓글 등록]")
     public Api<CommentRegisterResponse> register(
         @RequestBody @Valid Api<CommentRegisterRequest> registerRequest,
         @Parameter(hidden = true) @UserSession User user
@@ -35,6 +37,7 @@ public class CommentController {
     }
 
     @PostMapping("/unregister/{commentId}")
+    @Operation(summary = "[댓글 삭제]")
     public Api<MessageResponse> unregister(
         @PathVariable Long commentId,
         @Parameter(hidden = true) @UserSession User user
@@ -44,6 +47,7 @@ public class CommentController {
     }
 
     @PostMapping("/update")
+    @Operation(summary = "[댓글 수정]")
     public Api<CommentUpdateResponse> update(
         @RequestBody @Valid Api<CommentUpdateRequest> updateRequest,
         @Parameter(hidden = true) @UserSession User user)
