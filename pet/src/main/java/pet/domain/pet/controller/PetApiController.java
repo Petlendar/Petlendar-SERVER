@@ -2,6 +2,7 @@ package pet.domain.pet.controller;
 
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -30,14 +31,17 @@ public class PetApiController {
     @PostMapping()
     public Api<PetRegisterResponse> register(
         @RequestBody @Valid Api<PetRegisterRequest> registerRequest,
-        @UserSession User user
+        @Parameter(hidden = true) @UserSession User user
     ) {
         PetRegisterResponse response = petBusiness.register(registerRequest.getBody(), user.getId());
         return Api.OK(response);
     }
 
     @PostMapping("/unregister/{petId}")
-    public Api<MessageResponse> unregister(@PathVariable Long petId, @UserSession User user) {
+    public Api<MessageResponse> unregister(
+        @PathVariable Long petId,
+        @Parameter(hidden = true) @UserSession User user
+    ) {
         MessageResponse response = petBusiness.unregister(petId, user.getId());
         return Api.OK(response);
     }
@@ -45,20 +49,23 @@ public class PetApiController {
     @PostMapping("/update")
     public Api<MessageResponse> update(
         @RequestBody  @Valid Api<PetUpdateRequest> petUpdateRequest,
-        @UserSession User user
+        @Parameter(hidden = true) @UserSession User user
     ) {
         MessageResponse response = petBusiness.update(petUpdateRequest.getBody(), user.getId());
         return Api.OK(response);
     }
 
     @GetMapping("/{petId}")
-    public Api<PetDetailResponse> getPet(@PathVariable Long petId, @UserSession User user) {
+    public Api<PetDetailResponse> getPet(
+        @PathVariable Long petId,
+        @Parameter(hidden = true) @UserSession User user
+    ) {
         PetDetailResponse response = petBusiness.getPetBy(petId, user.getId());
         return Api.OK(response);
     }
 
     @GetMapping()
-    public Api<List<PetListResponse>> getPetList(@UserSession User user) {
+    public Api<List<PetListResponse>> getPetList(@Parameter(hidden = true) @UserSession User user) {
         List<PetListResponse> response = petBusiness.getPetListBy(user.getId());
         return Api.OK(response);
     }

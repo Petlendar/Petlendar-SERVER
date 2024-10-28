@@ -9,6 +9,7 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.common.resolver.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ public class BoardApiController {
     @PostMapping()
     public Api<BoardRegisterResponse> register(
         @RequestBody @Valid Api<BoardRegisterRequest> request,
-        @UserSession User user
+        @Parameter(hidden = true) @UserSession User user
     ) {
         BoardRegisterResponse response = boardBusiness.register(request.getBody(), user.getId());
         return Api.OK(response);
@@ -36,7 +37,7 @@ public class BoardApiController {
     @PostMapping("/unregister/{boardId}")
     public Api<MessageResponse> unregister(
         @PathVariable Long boardId,
-        @UserSession User user) {
+        @Parameter(hidden = true) @UserSession User user) {
         MessageResponse response = boardBusiness.unregister(boardId, user.getId());
         return Api.OK(response);
     }
@@ -44,7 +45,7 @@ public class BoardApiController {
     @PostMapping("/update")
     public Api<BoardUpdateResponse> update(
         @RequestBody @Valid Api<BoardUpdateRequest> updateRequest,
-        @UserSession User user) {
+        @Parameter(hidden = true) @UserSession User user) {
         BoardUpdateResponse response = boardBusiness.update(updateRequest.getBody(), user.getId());
         return Api.OK(response);
     }
