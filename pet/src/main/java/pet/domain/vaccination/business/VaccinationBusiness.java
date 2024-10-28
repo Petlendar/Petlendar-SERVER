@@ -21,6 +21,9 @@ public class VaccinationBusiness {
 
     public VaccinationResponse register(VaccinationRequest registerRequest, Long userId) {
 
+        // 반려동물이 존재하는지 확인, 없으면 예외
+        petService.notExistsByPetWithThrow(registerRequest.getPetId(), userId);
+
         // 존재 유무 확인 -> type, userId, petId, date 로 비교
         vaccinationService.existsByVaccinationRecordWithThrow(registerRequest, userId);
 
