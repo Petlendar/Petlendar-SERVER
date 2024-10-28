@@ -24,6 +24,6 @@ public class VaccinationDetailResponse {
     private Long userId;
 
     //TODO NULLABLE, 향후 HospitalModule 개발 시 변경
-    private Long hospitalId;
+//    private Long hospitalId;
 
 }

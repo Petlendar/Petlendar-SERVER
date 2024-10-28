@@ -18,7 +18,7 @@ public class VaccinationConverter {
             .registeredAt(LocalDateTime.now()) // 해당 요청이 등록된 시점
             .petId(registerRequest.getPetId())
             .userId(userId)
-            .hospitalId(registerRequest.getHospitalId())
+//            .hospitalId(registerRequest.getHospitalId())
             .build();
     }
 
@@ -46,7 +46,7 @@ public class VaccinationConverter {
             .registeredAt(vaccinationEntity.getRegisteredAt())
             .petId(vaccinationEntity.getPetId())
             .userId(vaccinationEntity.getUserId())
-            .hospitalId(vaccinationEntity.getHospitalId())
+//            .hospitalId(vaccinationEntity.getHospitalId())
             .build();
     }
 

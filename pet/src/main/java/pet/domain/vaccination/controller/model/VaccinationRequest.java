@@ -15,8 +15,8 @@ public class VaccinationRequest {
 
     private VaccinationType type;
 
-    private Long hospitalId;
-
     private LocalDateTime date;
+
+//    private Long hospitalId;
 
 }
