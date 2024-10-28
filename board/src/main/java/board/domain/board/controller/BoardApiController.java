@@ -9,6 +9,8 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.common.resolver.User;
 import global.annotation.UserSession;
 import global.api.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,26 +27,29 @@ public class BoardApiController {
     private final BoardBusiness boardBusiness;
 
     @PostMapping()
+    @Operation(summary = "[게시글 등록]")
     public Api<BoardRegisterResponse> register(
         @RequestBody @Valid Api<BoardRegisterRequest> request,
-        @UserSession User user
+        @Parameter(hidden = true) @UserSession User user
     ) {
         BoardRegisterResponse response = boardBusiness.register(request.getBody(), user.getId());
         return Api.OK(response);
     }
 
     @PostMapping("/unregister/{boardId}")
+    @Operation(summary = "[게시글 삭제]")
     public Api<MessageResponse> unregister(
         @PathVariable Long boardId,
-        @UserSession User user) {
+        @Parameter(hidden = true) @UserSession User user) {
         MessageResponse response = boardBusiness.unregister(boardId, user.getId());
         return Api.OK(response);
     }
 
     @PostMapping("/update")
+    @Operation(summary = "[게시글 수정]")
     public Api<BoardUpdateResponse> update(
         @RequestBody @Valid Api<BoardUpdateRequest> updateRequest,
-        @UserSession User user) {
+        @Parameter(hidden = true) @UserSession User user) {
         BoardUpdateResponse response = boardBusiness.update(updateRequest.getBody(), user.getId());
         return Api.OK(response);
     }
