@@ -23,4 +23,18 @@ public class VaccinationService {
 
     }
 
+    public void notExistsByVaccinationRecordWithThrow(Long petId) {
+        Boolean existsByVaccinationRecord = vaccinationRepository.existsByPetId(petId);
+        if (!existsByVaccinationRecord) {
+            throw new RuntimeException("접종기록이 존재하지 않습니다."); //TODO 예외 처리
+        }
+    }
+
+    public VaccinationEntity register(VaccinationEntity vaccinationEntity) {
+        return vaccinationRepository.save(vaccinationEntity);
+    }
+
+    public List<VaccinationEntity> getVaccinationRecordListBy(Long petId) {
+        return vaccinationRepository.findAllByPetIdOrderByIdAsc(petId);
+    }
 }

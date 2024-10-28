@@ -34,4 +34,15 @@ public class VaccinationApiController {
             user.getId());
         return Api.OK(response);
     }
+
+    @GetMapping("/{petId}")
+    public Api<List<VaccinationDetailResponse>> getVaccinationRecordList(
+        @PathVariable Long petId,
+        @Parameter(hidden = true) @UserSession User user
+    ) {
+        List<VaccinationDetailResponse> response = vaccinationBusiness.getVaccinationRecordList(petId,
+            user.getId());
+        return Api.OK(response);
+    }
+
 }
