@@ -24,7 +24,7 @@ public class PetExceptionHandler {
     @ExceptionHandler(value = ExistsPetException.class)
     public ResponseEntity<Api<Object>> existsPetException(ExistsPetException e) {
         log.info("", e);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
             .body(Api.ERROR(PetErrorCode.EXISTS_PET));
     }
 
