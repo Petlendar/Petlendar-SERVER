@@ -7,6 +7,7 @@ import image.domain.image.controller.model.ImageRequest;
 import image.domain.image.controller.model.ImageResponse;
 import image.common.resolver.User;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,10 @@ public class ImageApiController {
 
     @PostMapping()
     @Operation(summary = "[단일 이미지 Upload]")
-    public Api<ImageResponse> upload(ImageRequest imageRequest, @UserSession User user) {
+    public Api<ImageResponse> upload(
+        ImageRequest imageRequest,
+        @Parameter(hidden = true) @UserSession User user
+    ) {
         ImageResponse response = imageBusiness.uploadImage(imageRequest, user.getId());
         return Api.OK(response);
     }
