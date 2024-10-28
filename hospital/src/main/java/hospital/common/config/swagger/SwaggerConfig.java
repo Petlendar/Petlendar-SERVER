@@ -34,7 +34,8 @@ public class SwaggerConfig {
 
         return new OpenAPI()
             .components(new Components().addSecuritySchemes("Bearer", securityScheme))
-            .addServersItem(new Server().url("/"))
+            .addServersItem(new Server().url("http://localhost:9090/hospital"))
+//            .addServersItem(new Server().url("http://114.70.216.57/hospital"))
             .security(Arrays.asList(securityRequirement));
     }
 
