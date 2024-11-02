@@ -22,4 +22,12 @@ public class VaccinationDateResponse {
 
     private Long petId;
 
+    private DoseType doseType;
+
+    public enum DoseType {
+        INITIAL, // 기초접종
+        BOOSTER, // 추가접종
+        REINFORCEMENT // 보강접종
+    }
+
 }

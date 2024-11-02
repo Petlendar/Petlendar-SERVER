@@ -41,4 +41,10 @@ public class VaccinationService {
 
         return vaccinationEntityList;
     }
+
+    public List<VaccinationEntity> getVaccinationRecordListWithoutExceptionBy(Long petId) {
+        List<VaccinationEntity> vaccinationEntityList = vaccinationRepository.findAllByPetIdOrderByIdAsc(
+            petId);
+        return vaccinationEntityList;
+    }
 }

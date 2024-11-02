@@ -11,77 +11,90 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import pet.domain.calendar.controller.model.VaccinationDateResponse;
+import pet.domain.calendar.controller.model.VaccinationDateResponse.DoseType;
 import pet.domain.pet.service.PetService;
 import pet.domain.vaccination.service.VaccinationService;
 
 @Business
 @RequiredArgsConstructor
+@Slf4j
 public class CalendarBusiness {
 
     private final PetService petService;
     private final VaccinationService vaccinationService;
 
     public List<VaccinationDateResponse> getNextVaccinationDate(int year, int month, Long userId) {
-
+        // 등록된 반려동물 리스트 가져오기
         List<PetEntity> petEntityList = petService.getPetListBy(userId, PetStatus.REGISTERED);
         List<VaccinationDateResponse> vaccinationDateList = new ArrayList<>();
 
         for (PetEntity petEntity : petEntityList) {
-            List<VaccinationEntity> vaccinationEntityList = vaccinationService.getVaccinationRecordListBy(petEntity.getId());
+            // 각 반려동물의 예방접종 기록 조회
 
-            // 각 백신 타입별로 가장 최근 접종 기록을 찾음
+            List<VaccinationEntity> vaccinationEntityList = vaccinationService.getVaccinationRecordListWithoutExceptionBy(
+                petEntity.getId());
+
+            // 백신 타입별로 가장 최근 접종 기록을 저장할 Map
             Map<VaccinationType, VaccinationEntity> latestVaccinationMap = new HashMap<>();
 
+            // 각 예방접종 기록을 백신 타입별로 최신 데이터로 업데이트
             for (VaccinationEntity vaccinationEntity : vaccinationEntityList) {
                 VaccinationType type = vaccinationEntity.getType();
 
-                // 이미 같은 타입의 예방접종이 들어가 있는 경우 날짜 비교
-                if (latestVaccinationMap.containsKey(type)) {
-                    // 현재 저장된 백신 날짜와 비교해서 더 최신일 경우에만 업데이트
-                    if (vaccinationEntity.getDate().isAfter(latestVaccinationMap.get(type).getDate())) {
+                // 백신이 이미 Map 에 존재하고, 기존 날짜보다 최신이면 업데이트
+                if(latestVaccinationMap.containsKey(type)) {
+                    if(vaccinationEntity.getDate().isAfter(latestVaccinationMap.get(type).getDate())) {
                         latestVaccinationMap.put(type, vaccinationEntity);
                     }
                 } else {
-                    // 해당 타입의 백신이 처음 들어가는 경우 바로 추가
+                    // 백신이 처음 들어오는 경우 바로 추가
                     latestVaccinationMap.put(type, vaccinationEntity);
                 }
             }
 
-            for (VaccinationEntity vaccinationEntity : latestVaccinationMap.values()) {
-                LocalDate recordedVaccinationDate = vaccinationEntity.getDate().toLocalDate();
+            // 각 백신 타입에 대해 접종 일정을 계산
+            for (VaccinationType type : VaccinationType.values()) {
+                VaccinationEntity lastRecord = latestVaccinationMap.get(type);
+                LocalDate baseDate = lastRecord != null ? lastRecord.getDate().toLocalDate() : petEntity.getBirth();
 
-                // 1. Initial Vaccination 계산
-                LocalDate initialVaccinationDate = recordedVaccinationDate.plusDays(vaccinationEntity.getType().getInitialVaccination());
-                if (initialVaccinationDate.getYear() == year && initialVaccinationDate.getMonthValue() == month) {
-                    vaccinationDateList.add(createResponse(year, month, initialVaccinationDate, vaccinationEntity, petEntity));
+                // 1. 기초접종 계산
+                LocalDate initialDate = petEntity.getBirth().plusWeeks(type.getInitialWeeks());
+                if (initialDate.getYear() == year && initialDate.getMonthValue() == month) {
+                    vaccinationDateList.add(createResponse(year, month, initialDate, type, petEntity, DoseType.INITIAL));
                 }
 
-                // 2. Booster Vaccination 계산 (횟수 제한 포함)
-                for (int i = 1; i <= vaccinationEntity.getType().getBoosterVaccinationCount(); i++) {
-                    LocalDate boosterVaccinationDate = recordedVaccinationDate.plusDays(i * vaccinationEntity.getType().getBoosterVaccination());
-                    if (boosterVaccinationDate.getYear() == year && boosterVaccinationDate.getMonthValue() == month) {
-                        vaccinationDateList.add(createResponse(year, month, boosterVaccinationDate, vaccinationEntity, petEntity));
+                // 2. 추가접종 계산
+                for (int i = 1; i <= type.getBoosterCount(); i++) {
+                    LocalDate boosterDate = initialDate.plusWeeks(i * type.getBoosterWeeks());
+                    if (boosterDate.isAfter(baseDate) && boosterDate.getYear() == year && boosterDate.getMonthValue() == month) {
+                        vaccinationDateList.add(createResponse(year, month, boosterDate, type, petEntity, DoseType.BOOSTER));
                     }
                 }
 
-                // 3. Reinforcement Vaccination 계산
-                LocalDate reinforcementVaccinationDate = recordedVaccinationDate.plusDays(vaccinationEntity.getType().getReinforcementVaccination());
-                if (reinforcementVaccinationDate.getYear() == year && reinforcementVaccinationDate.getMonthValue() == month) {
-                    vaccinationDateList.add(createResponse(year, month, reinforcementVaccinationDate, vaccinationEntity, petEntity));
+                // 3. 보강접종 계산 (매년 주기로 반복)
+                LocalDate reinforcementDate = baseDate.plusWeeks(type.getReinforcementWeeks());
+                while (reinforcementDate.getYear() <= year) {
+                    reinforcementDate = reinforcementDate.plusYears(1);
+                    if (reinforcementDate.getYear() == year && reinforcementDate.getMonthValue() == month) {
+                        vaccinationDateList.add(createResponse(year, month, reinforcementDate, type, petEntity, DoseType.REINFORCEMENT));
+                    }
                 }
             }
         }
         return vaccinationDateList;
     }
 
-    private VaccinationDateResponse createResponse(int year, int month, LocalDate date, VaccinationEntity vaccination, PetEntity petEntity) {
+    private VaccinationDateResponse createResponse(int year, int month, LocalDate date,
+        VaccinationType type, PetEntity petEntity, DoseType doseType) {
         return VaccinationDateResponse.builder()
             .year(year)
             .month(month)
             .day(date.getDayOfMonth())
-            .vaccinationType(vaccination.getType())
+            .vaccinationType(type)
             .petId(petEntity.getId())
+            .doseType(doseType)
             .build();
     }
 
