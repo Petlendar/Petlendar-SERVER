@@ -1,6 +1,6 @@
 package user.domain.jwt.converter;
 
-import db.domain.token.RefreshTokenEntity;
+import db.domain.token.refreshtoken.RefreshTokenEntity;
 import global.annotation.Converter;
 import global.errorcode.ErrorCode;
 import java.util.Objects;
