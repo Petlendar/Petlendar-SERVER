@@ -9,4 +9,5 @@ include 'pet'
 include 'board'
 include 'hospital'
 include 'ai'
+include 'scheduler'
 
