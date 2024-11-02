@@ -1,7 +1,7 @@
 package user.domain.jwt.service;
 
-import db.domain.token.RefreshTokenEntity;
-import db.domain.token.RefreshTokenRepository;
+import db.domain.token.refreshtoken.RefreshTokenEntity;
+import db.domain.token.refreshtoken.RefreshTokenRepository;
 import global.errorcode.ErrorCode;
 import global.errorcode.TokenErrorCode;
 import java.util.HashMap;
