@@ -20,7 +20,7 @@ public class FcmConfig {
 
     //Setup Firebase Admin SDK
     @PostConstruct
-    public void getFcmCredential() {
+    public void initialize() {
         try {
             InputStream refreshToken = new ClassPathResource(fcmKeyPath).getInputStream();
 
