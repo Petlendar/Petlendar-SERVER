@@ -1,5 +1,7 @@
 package user.domain.user.service;
 
+import db.domain.token.fcmtoken.FcmTokenEntity;
+import db.domain.token.fcmtoken.FcmTokenRepository;
 import db.domain.user.UserEntity;
 import db.domain.user.UserRepository;
 import db.domain.user.enums.UserStatus;
@@ -20,6 +22,7 @@ import user.domain.user.controller.model.login.UserLoginRequest;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FcmTokenRepository fcmTokenRepository;
 
     public void register(UserEntity userEntity) {
         userEntity.setStatus(UserStatus.REGISTERED);
@@ -51,6 +54,7 @@ public class UserService {
         if (BCrypt.checkpw(userLoginRequest.getPassword(), userEntity.getPassword())) {
             userEntity.setLastLoginAt(LocalDateTime.now());
             userRepository.save(userEntity);
+            this.saveFcmToken(userEntity.getId(), userLoginRequest.getFcmToken());
             return userEntity;
         }
 
@@ -72,6 +76,15 @@ public class UserService {
         if (!unRegisterdUserEntity.getStatus().equals(UserStatus.UNREGISTERED)) {
             throw new UserUnregisterException(UserErrorCode.USER_UNREGISTER_FAIL);
         }
+    }
+
+    private void saveFcmToken(Long userId, String fcmToken) {
+        fcmTokenRepository.save(
+            FcmTokenEntity.builder()
+                .fcmToken(fcmToken)
+                .userId(userId)
+                .build()
+        );
     }
 
 }
