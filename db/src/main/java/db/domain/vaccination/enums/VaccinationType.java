@@ -1,5 +1,7 @@
 package db.domain.vaccination.enums;
 
+import java.time.LocalDate;
+import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,5 +20,19 @@ public enum VaccinationType {
     private final int boosterVaccination; // 추가접종 정보
     private final int boosterVaccinationCount; // 추가접종 횟수
     private final int reinforcementVaccination; // 보강접종 정보
+
+    // 다음 접종 날짜 계산
+    public LocalDate getNextVaccinationDate(LocalDate lastVaccinationDate) {
+        LocalDate initialDate = lastVaccinationDate.plusDays(initialVaccination);
+        LocalDate boosterDate = lastVaccinationDate.plusDays(boosterVaccination);
+        LocalDate reinforcementDate = lastVaccinationDate.plusDays(reinforcementVaccination);
+
+        // 주기가 0인 경우는 제외하고 가장 빠른 날짜를 계산
+        return Stream.of(initialDate, boosterDate, reinforcementDate)
+            .filter(date -> date != null && !date.isBefore(LocalDate.now()))
+            .min(LocalDate::compareTo)
+            .orElse(null);
+
+    }
 
 }
