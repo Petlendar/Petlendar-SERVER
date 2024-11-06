@@ -1,4 +1,4 @@
-package db.domain.token;
+package db.domain.token.refreshtoken;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

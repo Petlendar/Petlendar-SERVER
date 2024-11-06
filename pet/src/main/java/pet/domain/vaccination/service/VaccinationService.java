@@ -20,16 +20,10 @@ public class VaccinationService {
         Boolean existsByVaccinationRecord = vaccinationRepository.existsByTypeAndDateAndUserIdAndPetId(
             request.getType(), request.getDate(), userId, request.getPetId());
         if (existsByVaccinationRecord) {
-            throw new ExistsVaccinationRecordException(VaccinationRecordErrorCode.EXISTS_VACCINATION_RECORD);
+            throw new ExistsVaccinationRecordException(
+                VaccinationRecordErrorCode.EXISTS_VACCINATION_RECORD);
         }
 
-    }
-
-    public void notExistsByVaccinationRecordWithThrow(Long petId) {
-        Boolean existsByVaccinationRecord = vaccinationRepository.existsByPetId(petId);
-        if (!existsByVaccinationRecord) {
-            throw new ExistsVaccinationRecordException(VaccinationRecordErrorCode.VACCINATION_RECORD_NOT_FOUND);
-        }
     }
 
     public VaccinationEntity register(VaccinationEntity vaccinationEntity) {
@@ -37,6 +31,20 @@ public class VaccinationService {
     }
 
     public List<VaccinationEntity> getVaccinationRecordListBy(Long petId) {
-        return vaccinationRepository.findAllByPetIdOrderByIdAsc(petId);
+        List<VaccinationEntity> vaccinationEntityList = vaccinationRepository.findAllByPetIdOrderByIdAsc(
+            petId);
+
+        if (vaccinationEntityList.isEmpty()) {
+            throw new ExistsVaccinationRecordException(
+                VaccinationRecordErrorCode.VACCINATION_RECORD_NOT_FOUND);
+        }
+
+        return vaccinationEntityList;
+    }
+
+    public List<VaccinationEntity> getVaccinationRecordListWithoutExceptionBy(Long petId) {
+        List<VaccinationEntity> vaccinationEntityList = vaccinationRepository.findAllByPetIdOrderByIdAsc(
+            petId);
+        return vaccinationEntityList;
     }
 }

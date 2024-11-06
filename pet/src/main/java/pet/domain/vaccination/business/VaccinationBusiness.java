@@ -40,9 +40,6 @@ public class VaccinationBusiness {
         // 반려동물이 존재하는지 확인, 없으면 예외
         petService.notExistsByPetWithThrow(petId, userId);
 
-        // 해당 반려동물의 접종 기록이 존재하는지 확인
-        vaccinationService.notExistsByVaccinationRecordWithThrow(petId);
-
         // 해당 반려동물의 모든 접종기록 조회
         List<VaccinationEntity> vaccinationEntityList = vaccinationService.getVaccinationRecordListBy(petId);
 

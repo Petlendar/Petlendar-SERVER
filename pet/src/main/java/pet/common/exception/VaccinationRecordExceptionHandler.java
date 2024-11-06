@@ -27,7 +27,7 @@ public class VaccinationRecordExceptionHandler {
     public ResponseEntity<Api<Object>> vaccinationRecordNotFoundException(VaccinationRecordNotFoundException e) {
         log.info("", e);
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
-            .body(Api.ERROR(VaccinationRecordErrorCode.EXISTS_VACCINATION_RECORD));
+            .body(Api.ERROR(VaccinationRecordErrorCode.VACCINATION_RECORD_NOT_FOUND));
     }
 
 
