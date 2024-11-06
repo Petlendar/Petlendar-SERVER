@@ -18,4 +18,4 @@ spring:
 firebase:
   secret:
     key:
-      path: firebase/firebase_service_key.json
+      path: /app/firebase/firebase_service_key.json
