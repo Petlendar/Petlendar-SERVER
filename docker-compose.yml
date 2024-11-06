@@ -141,6 +141,27 @@ services:
     volumes:
       - C:/Users/USER/Desktop/Petlendar-SERVER/image/src/main/resources/static/images:/app/images
 
+  scheduler:
+    build:
+      context: .
+      dockerfile: ./scheduler/Dockerfile
+    image: svj7531/petlendar-scheduler
+    ports:
+      - "8088:8088"
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petlendar
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+      - global
+      - postgres
+    volumes:
+      - C:/Users/USER/Desktop/Petlendar-SERVER/scheduler/src/main/resources/firebase/firebase_service_key.json:/app/firebase/firebase_service_key.json
+
   nginx:
     image: nginx:latest
     container_name: nginx
