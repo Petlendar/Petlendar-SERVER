@@ -25,6 +25,9 @@ dependencies {
     // Postgresql
     runtimeOnly 'org.postgresql:postgresql'
 
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     // Firebase Cloud Message
     implementation group: 'com.google.firebase', name: 'firebase-admin', version: '9.4.1'
 
