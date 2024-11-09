@@ -1,7 +1,6 @@
 package user.domain.user.service;
 
-import db.domain.token.fcmtoken.FcmTokenEntity;
-import db.domain.token.fcmtoken.FcmTokenRepository;
+import db.domain.token.TokenEntity;
 import db.domain.user.UserEntity;
 import db.domain.user.UserRepository;
 import db.domain.user.enums.UserStatus;
@@ -9,6 +8,7 @@ import global.errorcode.UserErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import user.common.exception.user.ExistUserEmailException;
 import user.common.exception.user.ExistUserNameException;
@@ -22,7 +22,7 @@ import user.domain.user.controller.model.login.UserLoginRequest;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final FcmTokenRepository fcmTokenRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public void register(UserEntity userEntity) {
         userEntity.setStatus(UserStatus.REGISTERED);
@@ -79,12 +79,7 @@ public class UserService {
     }
 
     private void saveFcmToken(Long userId, String fcmToken) {
-        fcmTokenRepository.save(
-            FcmTokenEntity.builder()
-                .fcmToken(fcmToken)
-                .userId(userId)
-                .build()
-        );
+        redisTemplate.opsForHash().put(String.valueOf(userId), "fcmToken", fcmToken);
     }
 
 }

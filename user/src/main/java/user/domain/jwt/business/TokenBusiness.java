@@ -1,6 +1,6 @@
 package user.domain.jwt.business;
 
-import db.domain.token.refreshtoken.RefreshTokenEntity;
+import db.domain.token.TokenEntity;
 import db.domain.user.UserEntity;
 import global.annotation.Business;
 import global.errorcode.ErrorCode;
@@ -36,12 +36,12 @@ public class TokenBusiness {
 
         TokenDto refreshToken = tokenService.issueRefreshToken(userId);
 
-        RefreshTokenEntity refreshTokenEntity = tokenConverter.toRefreshTokenEntity(
+        TokenEntity tokenEntity = tokenConverter.toRefreshTokenEntity(
             userEntity.getId(), refreshToken.getToken());
 
         tokenService.deleteRefreshToken(userId);
 
-        tokenService.saveRefreshToken(refreshTokenEntity);
+        tokenService.saveRefreshToken(tokenEntity);
 
         return tokenConverter.toResponse(accessToken, refreshToken);
     }
@@ -56,7 +56,6 @@ public class TokenBusiness {
 
     public TokenValidationResponse tokenValidation(TokenValidationRequest token) {
         Long userId = tokenService.validationToken(token.getTokenDto().getToken().substring(7));
-        System.out.println(userId);
         return TokenValidationResponse.builder().userId(userId).build();
     }
 }
