@@ -11,11 +11,11 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.MulticastMessage;
 import com.google.firebase.messaging.Notification;
 import com.google.firebase.messaging.SendResponse;
-import db.domain.token.fcmtoken.FcmTokenRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import scheduler.config.fcm.dto.MessageDto;
 
@@ -24,7 +24,7 @@ import scheduler.config.fcm.dto.MessageDto;
 @Slf4j
 public class FcmUtils {
 
-    private final FcmTokenRepository fcmTokenRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
     private final int MAX_DEVICES_PER_MESSAGE = 500;
 
     public void sendToAllDevices(List<MessageDto> messageDtoList) throws FirebaseMessagingException {
@@ -77,8 +77,7 @@ public class FcmUtils {
                 }
 
                 log.info("List of tokens that caused failures: {}", failedTokens);
-                fcmTokenRepository.deleteAllByFcmTokenIn(failedTokens);
-
+                // TODO 삭제 로직
             }
         }
     }
