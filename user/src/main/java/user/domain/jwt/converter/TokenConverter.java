@@ -1,6 +1,6 @@
 package user.domain.jwt.converter;
 
-import db.domain.token.refreshtoken.RefreshTokenEntity;
+import db.domain.token.TokenEntity;
 import global.annotation.Converter;
 import global.errorcode.ErrorCode;
 import java.util.Objects;
@@ -11,8 +11,8 @@ import user.domain.jwt.model.TokenResponse;
 @Converter
 public class TokenConverter {
 
-    public RefreshTokenEntity toRefreshTokenEntity(Long userId, String refreshToken) {
-        return RefreshTokenEntity.builder()
+    public TokenEntity toRefreshTokenEntity(Long userId, String refreshToken) {
+        return TokenEntity.builder()
             .userId(userId)
             .refreshToken(refreshToken)
             .build();
