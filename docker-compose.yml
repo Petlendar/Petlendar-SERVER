@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:latest
+    container_name: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
@@ -14,8 +15,7 @@ services:
 
   redis:
     image: redis:latest
-    environment:
-      - REDIS_PASSWORD=1234  # 비밀번호 설정
+    container_name: redis
     ports:
       - "6379:6379"
     networks:
@@ -89,6 +89,7 @@ services:
       - db
       - global
       - postgres
+      - redis
 
   pet:
     build:
@@ -167,6 +168,7 @@ services:
       - db
       - global
       - postgres
+      - redis
     volumes:
       - C:/Users/USER/Desktop/Petlendar-SERVER/scheduler/src/main/resources/firebase/firebase_service_key.json:/app/firebase/firebase_service_key.json
 
