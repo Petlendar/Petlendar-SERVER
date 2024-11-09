@@ -1,24 +1,20 @@
-package db.domain.token.refreshtoken;
+package db.domain.token;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "refresh_token")
-public class RefreshTokenEntity {
+public class TokenEntity {
 
-    @Id
     private Long userId;
 
     private String refreshToken;
+
+    private String fcmToken;
 
 }
