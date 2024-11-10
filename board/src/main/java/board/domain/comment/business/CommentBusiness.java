@@ -36,7 +36,6 @@ public class CommentBusiness {
     }
 
     public List<CommentDetailResponse> getCommentDetailListBy(Long boardId) {
-        // 해당하는 게시글에 대한 댓글 리스트 조회, EMPTY 인 경우가 존재함
         List<CommentEntity> commentEntityList = commentService.getCommentListBy(boardId);
         return commentConverter.toResponse(
             commentEntityList);

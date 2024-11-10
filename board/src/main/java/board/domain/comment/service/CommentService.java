@@ -53,10 +53,14 @@ public class CommentService {
         commentRepository.save(commentEntity);
     }
 
-    // EMPTY 가능
     public List<CommentEntity> getCommentListBy(Long boardId) {
-        return commentRepository.findAllByBoardIdAndStatusNotOrderByRegisteredAtAsc(
+        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardIdAndStatusNotOrderByRegisteredAtAsc(
             boardId, CommentStatus.UNREGISTERED);
 
+        if (commentEntityList.isEmpty()) {
+            throw new CommentNotFoundException(CommentErrorCode.COMMENT_NOT_FOUND);
+        }
+
+        return commentEntityList;
     }
 }
