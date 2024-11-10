@@ -31,8 +31,15 @@ public class CalendarBusiness {
         List<VaccinationDateResponse> vaccinationDateList = new ArrayList<>();
 
         for (PetEntity petEntity : petEntityList) {
-            // 각 반려동물의 예방접종 기록 조회
 
+            // 생일 추가
+            LocalDate birthday = petEntity.getBirth();
+            LocalDate targetBirthday = LocalDate.of(year, birthday.getMonthValue(), birthday.getDayOfMonth());
+            if (targetBirthday.getMonthValue() == month) {
+                vaccinationDateList.add(createResponse(year, month, targetBirthday, null, petEntity, DoseType.BIRTHDAY));
+            }
+
+            // 각 반려동물의 예방접종 기록 조회
             List<VaccinationEntity> vaccinationEntityList = vaccinationService.getVaccinationRecordListWithoutExceptionBy(
                 petEntity.getId());
 
