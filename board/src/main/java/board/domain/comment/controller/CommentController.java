@@ -1,6 +1,7 @@
 package board.domain.comment.controller;
 
 import board.common.response.MessageResponse;
+import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.comment.business.CommentBusiness;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
@@ -12,7 +13,9 @@ import global.api.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +36,13 @@ public class CommentController {
         @Parameter(hidden = true) @UserSession User user
     ) {
         CommentRegisterResponse response = commentBusiness.register(registerRequest.getBody(), user.getId());
+        return Api.OK(response);
+    }
+
+    @GetMapping("/{boardId}")
+    @Operation(summary = "[게시글 댓글 조회]")
+    public Api<List<CommentDetailResponse>> getCommentDetailList(@PathVariable Long boardId) {
+        List<CommentDetailResponse> response = commentBusiness.getCommentDetailListBy(boardId);
         return Api.OK(response);
     }
 

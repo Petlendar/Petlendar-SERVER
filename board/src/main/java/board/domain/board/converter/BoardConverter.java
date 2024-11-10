@@ -30,8 +30,7 @@ public class BoardConverter {
 
     public BoardDetailResponse toResponse(
         BoardEntity boardEntity,
-        List<ImageResponse> imageResponseList,
-        List<CommentDetailResponse> commentDetailList
+        List<ImageResponse> imageResponseList
     ) {
         return BoardDetailResponse.builder()
             .id(boardEntity.getUserId())
@@ -43,7 +42,6 @@ public class BoardConverter {
             .modifiedAt(boardEntity.getModifiedAt())
             .userId(boardEntity.getUserId())
             .boardImage(imageResponseList)
-            .commentList(commentDetailList)
             .build();
     }
 
