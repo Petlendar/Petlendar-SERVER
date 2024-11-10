@@ -67,6 +67,9 @@ public class PetBusiness {
         PetEntity petEntity = petService.getPetBy(petUpdateRequest.getPetId(),
             PetStatus.REGISTERED);
         petService.update(petEntity, petUpdateRequest);
+
+        imageService.linkImageToPet(petUpdateRequest.getImageId(), petEntity);
+
         return messageConverter.toResponse("반려동물 정보가 수정되었습니다.");
     }
 

@@ -26,4 +26,7 @@ public class PetUpdateRequest {
     @Size(max = 200, message = "최대 200자까지 입력 가능합니다.")
     private String address;
 
+    //TODO 이미지 수정 추가!!
+    private Long imageId;
+
 }
