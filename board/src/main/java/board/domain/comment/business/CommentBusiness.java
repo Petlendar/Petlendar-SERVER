@@ -2,6 +2,7 @@ package board.domain.comment.business;
 
 import board.common.response.MessageConverter;
 import board.common.response.MessageResponse;
+import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
@@ -11,6 +12,7 @@ import board.domain.comment.converter.CommentConverter;
 import board.domain.comment.service.CommentService;
 import db.domain.comment.CommentEntity;
 import global.annotation.Business;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @Business
@@ -31,6 +33,13 @@ public class CommentBusiness {
         CommentEntity savedCommentEntity =  commentService.register(commentEntity, userId);
 
         return commentConverter.toResponse(savedCommentEntity);
+    }
+
+    public List<CommentDetailResponse> getCommentDetailListBy(Long boardId) {
+        // 해당하는 게시글에 대한 댓글 리스트 조회, EMPTY 인 경우가 존재함
+        List<CommentEntity> commentEntityList = commentService.getCommentListBy(boardId);
+        return commentConverter.toResponse(
+            commentEntityList);
     }
 
     public CommentUpdateResponse update(CommentUpdateRequest updateRequest, Long userId) {

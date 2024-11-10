@@ -31,10 +31,8 @@ import org.springframework.data.domain.Pageable;
 public class BoardBusiness {
 
     private final BoardService boardService;
-    private final CommentService commentService;
     private final ImageService imageService;
     private final BoardConverter boardConverter;
-    private final CommentConverter commentConverter;
     private final MessageConverter messageConverter;
     private final ImageConverter imageConverter;
 
@@ -84,12 +82,7 @@ public class BoardBusiness {
             .map(imageEntity -> imageConverter.toResponse(imageEntity))
             .toList();
 
-        // 해당하는 게시글에 대한 댓글 리스트 조회, EMPTY 인 경우가 존재함
-        List<CommentEntity> commentEntityList = commentService.getCommentListBy(boardId);
-        List<CommentDetailResponse> commentDetailList = commentConverter.toResponse(
-            commentEntityList);
-
-        return boardConverter.toResponse(boardEntity, imageResponseList, commentDetailList);
+        return boardConverter.toResponse(boardEntity, imageResponseList);
     }
 
     public List<BoardSearchResponse> getBoardSearchBy(SearchCondition condition, Pageable page) {

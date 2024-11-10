@@ -32,8 +32,6 @@ public class BoardDetailResponse {
 
     private Long userId;
 
-    private List<CommentDetailResponse> commentList;
-
     private List<ImageResponse> boardImage;
 
 }
