@@ -27,7 +27,9 @@ public class VaccinationDateResponse {
     public enum DoseType {
         INITIAL, // 기초접종
         BOOSTER, // 추가접종
-        REINFORCEMENT // 보강접종
+        REINFORCEMENT, // 보강접종
+        BIRTHDAY
+        ;
     }
 
 }
