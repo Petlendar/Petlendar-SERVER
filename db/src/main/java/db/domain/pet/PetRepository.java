@@ -16,4 +16,6 @@ public interface PetRepository extends JpaRepository<PetEntity, Long> {
 
     List<PetEntity> findAllByUserIdAndStatusOrderByIdAsc(Long userId, PetStatus status);
 
+    List<PetEntity> findAllByStatus(PetStatus status);
+
 }

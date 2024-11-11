@@ -31,12 +31,11 @@ dependencies {
     // Firebase Cloud Message
     implementation group: 'com.google.firebase', name: 'firebase-admin', version: '9.4.1'
 
-    // Spring Batch
-    implementation 'org.springframework.boot:spring-boot-starter-batch'
-
     // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
