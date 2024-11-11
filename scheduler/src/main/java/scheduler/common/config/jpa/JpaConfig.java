@@ -1,4 +1,4 @@
-package scheduler.config.jpa;
+package scheduler.common.config.jpa;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

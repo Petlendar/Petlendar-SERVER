@@ -1,4 +1,4 @@
-package scheduler.config.fcm.dto;
+package scheduler.common.config.fcm.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
