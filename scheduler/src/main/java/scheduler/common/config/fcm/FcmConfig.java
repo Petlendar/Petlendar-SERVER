@@ -1,4 +1,4 @@
-package scheduler.config.fcm;
+package scheduler.common.config.fcm;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;

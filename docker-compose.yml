@@ -172,6 +172,17 @@ services:
     volumes:
       - C:/Users/USER/Desktop/Petlendar-SERVER/scheduler/src/main/resources/firebase/firebase_service_key.json:/app/firebase/firebase_service_key.json
 
+  ai:
+    image: svj7531/petlendar-ai
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    environment:
+      FLASK_APP: app.py
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_RUN_PORT: 5000
+
   nginx:
     image: nginx:latest
     container_name: nginx

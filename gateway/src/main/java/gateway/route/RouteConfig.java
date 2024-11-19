@@ -23,6 +23,7 @@ public class RouteConfig {
      * Board Module Port : 8084
      * Image Module Port : 8085
      * Hospital Module Port : 8086
+     * AI Module Port : 5000 - Python Flask
      */
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
@@ -153,7 +154,32 @@ public class RouteConfig {
                 .uri("http://hospital:8086"))
 //                .uri("http://localhost:8086"))
 
-            .build();
+        // -------------------- AI Module --------------------
+            .route(spec -> spec.order(-1)
+                .path("/ai/api/**")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPrivateFilter.apply(new ServiceApiPrivateFilter.Config()))
+                    .rewritePath("/ai(?<segment>/?.*)", "${segment}")
+                )
+                .uri("http://ai:5000")
+            )
+            .route(spec -> spec.order(-1)
+                .path("/ai/open-api/**")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/ai(?<segment>/?.*)", "${segment}")
+                )
+                .uri("http://ai:5000")
+            )
+            .route(spec -> spec.order(-1)
+                .path("/open-api/ai/v3/api-docs")
+                .filters(filterSpec -> filterSpec
+                    .filter(serviceApiPublicFilter.apply(new ServiceApiPublicFilter.Config()))
+                    .rewritePath("/open-api/ai/v3/api-docs", "/v3/api-docs")
+                )
+                .uri("http://ai:5000"))
 
+
+            .build();
     }
 }
