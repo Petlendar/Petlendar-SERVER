@@ -32,6 +32,8 @@ public class BoardDetailResponse {
 
     private Long userId;
 
+    private String name;
+
     private List<ImageResponse> boardImage;
 
 }

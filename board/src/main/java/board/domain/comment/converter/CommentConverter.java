@@ -1,15 +1,21 @@
 package board.domain.comment.converter;
 
-import board.domain.board.controller.model.detail.CommentDetailResponse;
+import board.domain.comment.controller.model.detail.CommentDetailResponse;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;
 import board.domain.comment.controller.model.update.CommentUpdateResponse;
+import board.domain.user.service.UserService;
 import db.domain.comment.CommentEntity;
+import db.domain.user.UserEntity;
 import global.annotation.Converter;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Converter
+@RequiredArgsConstructor
 public class CommentConverter {
+
+    private final UserService userService;
 
     public CommentEntity toEntity(CommentRegisterRequest registerRequest) {
         return CommentEntity.builder()
@@ -36,6 +42,7 @@ public class CommentConverter {
     }
 
     public CommentDetailResponse toDetailResponse(CommentEntity commentEntity) {
+        UserEntity userEntity = userService.getUserWithThrow(commentEntity.getUserId());
         return CommentDetailResponse.builder()
             .commentId(commentEntity.getId())
             .content(commentEntity.getContent())
@@ -43,6 +50,7 @@ public class CommentConverter {
             .registeredAt(commentEntity.getRegisteredAt())
             .modifiedAt(commentEntity.getModifiedAt())
             .userId(commentEntity.getUserId())
+            .name(userEntity.getName())
             .boardId(commentEntity.getBoardId())
             .build();
     }

@@ -1,7 +1,6 @@
 package board.domain.board.converter;
 
 import board.domain.board.controller.model.detail.BoardDetailResponse;
-import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
 import board.domain.board.controller.model.search.BoardSearchResponse;
@@ -10,8 +9,7 @@ import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.image.controller.model.ImageResponse;
 import db.domain.board.BoardEntity;
 import db.domain.board.EntitySearchCondition;
-import db.domain.comment.CommentEntity;
-import db.domain.image.ImageEntity;
+import db.domain.user.UserEntity;
 import global.annotation.Converter;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +27,7 @@ public class BoardConverter {
     }
 
     public BoardDetailResponse toResponse(
-        BoardEntity boardEntity,
+        BoardEntity boardEntity, UserEntity userEntity,
         List<ImageResponse> imageResponseList
     ) {
         return BoardDetailResponse.builder()
@@ -41,6 +39,7 @@ public class BoardConverter {
             .registeredAt(boardEntity.getRegisteredAt())
             .modifiedAt(boardEntity.getModifiedAt())
             .userId(boardEntity.getUserId())
+            .name(userEntity.getName())
             .boardImage(imageResponseList)
             .build();
     }
@@ -75,9 +74,10 @@ public class BoardConverter {
             .build();
     }
 
-    public BoardSearchResponse toResponse(BoardEntity boardEntity, ImageResponse imageResponse) {
+    public BoardSearchResponse toResponse(BoardEntity boardEntity, UserEntity userEntity, ImageResponse imageResponse) {
         return BoardSearchResponse.builder()
             .boardId(boardEntity.getId())
+            .name(userEntity.getName())
             .title(boardEntity.getTitle())
             .registeredAt(boardEntity.getRegisteredAt())
             .status(boardEntity.getStatus())
