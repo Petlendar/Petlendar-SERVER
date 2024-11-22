@@ -3,7 +3,6 @@ package board.domain.board.business;
 import board.common.response.MessageConverter;
 import board.common.response.MessageResponse;
 import board.domain.board.controller.model.detail.BoardDetailResponse;
-import board.domain.board.controller.model.detail.CommentDetailResponse;
 import board.domain.board.controller.model.register.BoardRegisterRequest;
 import board.domain.board.controller.model.register.BoardRegisterResponse;
 import board.domain.board.controller.model.search.BoardSearchResponse;
@@ -12,15 +11,14 @@ import board.domain.board.controller.model.update.BoardUpdateRequest;
 import board.domain.board.controller.model.update.BoardUpdateResponse;
 import board.domain.board.converter.BoardConverter;
 import board.domain.board.service.BoardService;
-import board.domain.comment.converter.CommentConverter;
-import board.domain.comment.service.CommentService;
 import board.domain.image.controller.model.ImageResponse;
 import board.domain.image.converter.ImageConverter;
 import board.domain.image.service.ImageService;
+import board.domain.user.service.UserService;
 import db.domain.board.BoardEntity;
 import db.domain.board.EntitySearchCondition;
-import db.domain.comment.CommentEntity;
 import db.domain.image.ImageEntity;
+import db.domain.user.UserEntity;
 import global.annotation.Business;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +30,7 @@ public class BoardBusiness {
 
     private final BoardService boardService;
     private final ImageService imageService;
+    private final UserService userService;
     private final BoardConverter boardConverter;
     private final MessageConverter messageConverter;
     private final ImageConverter imageConverter;
@@ -76,13 +75,17 @@ public class BoardBusiness {
         // 게시글 Entity 조회
         BoardEntity boardEntity = boardService.getBoardBy(boardId);
 
+        Long userId = boardEntity.getUserId();
+
+        UserEntity userEntity = userService.getUserWithThrow(userId);
+
         // 이미지 Entity 조회
         List<ImageEntity> imageEntityList = imageService.getImageOrEmptyBy(boardId);
         List<ImageResponse> imageResponseList = imageEntityList.stream()
             .map(imageEntity -> imageConverter.toResponse(imageEntity))
             .toList();
 
-        return boardConverter.toResponse(boardEntity, imageResponseList);
+        return boardConverter.toResponse(boardEntity, userEntity, imageResponseList);
     }
 
     public List<BoardSearchResponse> getBoardSearchBy(SearchCondition condition, Pageable page) {
@@ -94,8 +97,9 @@ public class BoardBusiness {
 
             ImageEntity firstImageEntity = getFirstImageBy(boardEntity.getId());
             ImageResponse boardImageResponse = (firstImageEntity != null) ? imageConverter.toResponse(firstImageEntity) : null;
+            UserEntity userEntity = userService.getUserWithThrow(boardEntity.getUserId());
 
-            return boardConverter.toResponse(boardEntity, boardImageResponse);
+            return boardConverter.toResponse(boardEntity, userEntity, boardImageResponse);
         }).toList();
     }
 

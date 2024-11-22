@@ -1,4 +1,4 @@
-package board.domain.board.controller.model.detail;
+package board.domain.comment.controller.model.detail;
 
 import db.domain.comment.enums.CommentStatus;
 import java.time.LocalDateTime;
@@ -24,6 +24,8 @@ public class CommentDetailResponse {
     private LocalDateTime modifiedAt;
 
     private Long userId;
+
+    private String name;
 
     private Long boardId;
 

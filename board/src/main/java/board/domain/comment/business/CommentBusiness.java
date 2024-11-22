@@ -2,7 +2,7 @@ package board.domain.comment.business;
 
 import board.common.response.MessageConverter;
 import board.common.response.MessageResponse;
-import board.domain.board.controller.model.detail.CommentDetailResponse;
+import board.domain.comment.controller.model.detail.CommentDetailResponse;
 import board.domain.board.service.BoardService;
 import board.domain.comment.controller.model.register.CommentRegisterRequest;
 import board.domain.comment.controller.model.register.CommentRegisterResponse;

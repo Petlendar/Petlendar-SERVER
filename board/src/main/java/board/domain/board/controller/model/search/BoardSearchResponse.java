@@ -16,6 +16,8 @@ public class BoardSearchResponse {
 
     private Long boardId;
 
+    private String name;
+
     private String title;
 
     private LocalDateTime registeredAt;
